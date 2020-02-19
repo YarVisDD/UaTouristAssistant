@@ -1,7 +1,8 @@
 package com.main.uatouristassistant.controller;
 
 import com.main.uatouristassistant.entity.User;
-import com.main.uatouristassistant.entity.userRoles;
+import com.main.uatouristassistant.entity.UserAdminRoles;
+import com.main.uatouristassistant.entity.UserRoles;
 import com.main.uatouristassistant.repository.UserRepository;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class UserController {
     boolean addUser(@RequestParam String login,
                     @RequestParam String password,
                     @RequestParam String email,
-                    @RequestParam userRoles userRole,
+                    @RequestParam UserRoles userRole,
                     String firstName,
                     String lastName,
                     String dateOfBirth) {
@@ -33,6 +34,45 @@ public class UserController {
         user.setUserRole(userRole);
         userRepository.save(user);
         return true;
+    }
+
+    @PostMapping(path = "/addAdmin")
+    public @ResponseBody
+    boolean addAdmin(@RequestParam String login,
+                     @RequestParam String password,
+                     @RequestParam String email,
+                     @RequestParam UserAdminRoles userAdmin,
+                     String firstName,
+                     String lastName,
+                     String dateOfBirth) {
+        User user = new User();
+        user.setLogin(login);
+        user.setPassword(DigestUtils.sha256Hex(password));
+        user.setEmail(email);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setDateOfBirth(dateOfBirth);
+        user.setUserAdmin(userAdmin);
+        userRepository.save(user);
+        return true;
+    }
+
+    @PostMapping(path = "/login")
+    public @ResponseBody
+    boolean userLogin(@RequestParam String login, @RequestParam String password) {
+        boolean loginInfo = false;
+        User user;
+        try {
+            user = userRepository.findByLogin(login);
+            String loginFromDb = user.getLogin();
+            String passFromDb = user.getPassword();
+            if ((login.equals(loginFromDb)) && (DigestUtils.sha256Hex(password).equals(passFromDb))) {
+                loginInfo = true;
+            }
+        } catch (NullPointerException ex) {
+            System.out.println("User with the login " + login + " is not registered");
+        }
+        return loginInfo;
     }
 
     @GetMapping(path = "/list")
