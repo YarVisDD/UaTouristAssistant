@@ -15,7 +15,6 @@ public class Place {
     private String placeDescription;
     @Enumerated(EnumType.STRING)
     private PlaceType placeType;
-
     //TODO: images
     private String imageName;
     //TODO поміняти на юзера
