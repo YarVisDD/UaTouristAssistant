@@ -9,16 +9,14 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class User {
+public class CommentAndRating {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long commentId;
     private Long userId;
-    private String login;
-    private String password;
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String dateOfBirth;
-    private UserRoles userRole;
-    private UserAdminRoles userAdmin;
+    private String comment;
+    private String rate;
+    private Long placeId;
+
+
 }
