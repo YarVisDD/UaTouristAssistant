@@ -3,6 +3,7 @@ package com.main.uatouristassistant.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -16,9 +17,12 @@ public class Place {
     @Enumerated(EnumType.STRING)
     private PlaceType placeType;
     //TODO: images
-    private String imageName;
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Images> imagePath;
     //TODO поміняти на юзера
     private String userName;
-    //TODO переробити адрес
     private String address;
+//    @OneToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "address_id")
+//    private Address address;
 }
