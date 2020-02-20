@@ -14,26 +14,19 @@ import org.springframework.web.bind.annotation.*;
 public class AddressController {
     @Autowired
     private AddressRepository addressRepository;
-    @Autowired
-    private CityRepository cityRepository;
 
     @PostMapping(path = "addAddress")
     @ResponseBody
-    public String addAddress(@RequestParam String cityName,
+    public Address addAddress(@RequestParam String cityName,
                              @RequestParam String streetName,
                              @RequestParam String numberHouse) {
 
         Address address = new Address();
-        if (cityRepository.findByCityName(cityName) == null) {
-            address.setCityName(new City(cityName));
-        } else {
-            address.setCityName(cityRepository.findByCityName(cityName));
-        }
+
         address.setStreetName(streetName);
         address.setNumberHouse(numberHouse);
-        addressRepository.save(address);
 
-        return "add";
+        return addressRepository.save(address);
     }
 
     @GetMapping(path = "/listAllAddress")

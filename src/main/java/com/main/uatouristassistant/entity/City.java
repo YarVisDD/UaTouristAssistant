@@ -14,6 +14,7 @@ public class City {
     private String cityName;
     private String ciyInfo;
 
+    public City() {}
     public City(String cityName) {
         this.cityName = cityName;
     }

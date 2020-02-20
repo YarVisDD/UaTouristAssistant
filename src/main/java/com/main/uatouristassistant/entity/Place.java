@@ -2,10 +2,7 @@ package com.main.uatouristassistant.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -16,6 +13,7 @@ public class Place {
     private Long idPlace;
     private String placeName;
     private String placeDescription;
+    @Enumerated(EnumType.STRING)
     private PlaceType placeType;
     //TODO: images
     private String imageName;
