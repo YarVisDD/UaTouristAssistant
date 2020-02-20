@@ -17,8 +17,8 @@ public class Place {
     @Enumerated(EnumType.STRING)
     private PlaceType placeType;
     //TODO: images
-    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Images> imagePath;
+//    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private String imagePath;
     //TODO поміняти на юзера
     private String userName;
     private String address;

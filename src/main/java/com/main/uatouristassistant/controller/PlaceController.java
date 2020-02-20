@@ -3,7 +3,6 @@ package com.main.uatouristassistant.controller;
 import com.main.uatouristassistant.entity.Images;
 import com.main.uatouristassistant.entity.Place;
 import com.main.uatouristassistant.entity.PlaceType;
-import com.main.uatouristassistant.repository.ImageRepository;
 import com.main.uatouristassistant.repository.PlaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
 import java.util.UUID;
 
 @Controller
@@ -21,8 +19,6 @@ import java.util.UUID;
 public class PlaceController {
     @Autowired
     private PlaceRepository placeRepository;
-    @Autowired
-    private ImageRepository imageRepository;
 
     @Value("${upload.path}")
     private String imagePath;
@@ -32,7 +28,7 @@ public class PlaceController {
     public String addPlace(@RequestParam String placeName,
                            @RequestParam String placeDescription,
                            @RequestParam PlaceType placeType,
-                           @RequestParam("file") MultipartFile[] images,
+                           @RequestParam("file") MultipartFile image,
                            @RequestParam String userName,
                            @RequestParam String address) throws IOException {
 
@@ -41,22 +37,19 @@ public class PlaceController {
         place.setPlaceDescription(placeDescription);
         place.setPlaceType(placeType);
 
-        for (MultipartFile image : images) {
+        if (image != null && !image.getOriginalFilename().isEmpty()) {
+            File uploadDir = new File(imagePath);
 
-            if (image != null && !image.getOriginalFilename().isEmpty()) {
-                File uploadDir = new File(imagePath);
-
-                if (uploadDir.exists()) {
-                    uploadDir.mkdir();
-                }
-
-                String uuidImage = UUID.randomUUID().toString();
-                String resultImageName = uuidImage + "." + image.getOriginalFilename();
-
-                image.transferTo(new File(imagePath + "/" + resultImageName));
-
-                imageRepository.save(new Images(resultImageName));
+            if (uploadDir.exists()) {
+                uploadDir.mkdir();
             }
+
+            String uuidImage = UUID.randomUUID().toString();
+            String resultImageName = uuidImage + "." + image.getOriginalFilename();
+
+            image.transferTo(new File(imagePath + "/" + resultImageName));
+
+            place.setImagePath(resultImageName);
         }
 
         place.setUserName(userName);
