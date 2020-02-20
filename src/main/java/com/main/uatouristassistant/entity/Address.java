@@ -14,7 +14,6 @@ public class Address {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id")
     private City cityName;
-
     private String streetName;
     private String numberHouse;
 
