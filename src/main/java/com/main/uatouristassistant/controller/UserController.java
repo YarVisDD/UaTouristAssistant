@@ -1,7 +1,7 @@
 package com.main.uatouristassistant.controller;
 
 import com.main.uatouristassistant.entity.User;
-import com.main.uatouristassistant.entity.userRoles;
+import com.main.uatouristassistant.entity.UserRoles;
 import com.main.uatouristassistant.repository.UserRepository;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class UserController {
     boolean addUser(@RequestParam String login,
                     @RequestParam String password,
                     @RequestParam String email,
-                    @RequestParam userRoles userRole,
+                    @RequestParam UserRoles userRole,
                     String firstName,
                     String lastName,
                     String dateOfBirth) {
