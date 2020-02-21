@@ -17,44 +17,67 @@ public class UserController {
 
     @PostMapping(path = "/addUser")
     public @ResponseBody
-    boolean addUser(@RequestParam String login,
+    String addUser(@RequestParam String login,
                     @RequestParam String password,
                     @RequestParam String email,
                     @RequestParam UserRoles userRole,
                     String firstName,
                     String lastName,
                     String dateOfBirth) {
+        String addUserInfo = null;
         User user = new User();
-        user.setLogin(login);
-        user.setPassword(DigestUtils.sha256Hex(password));
-        user.setEmail(email);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setDateOfBirth(dateOfBirth);
-        user.setUserRole(userRole);
-        userRepository.save(user);
-        return true;
+        User userLoginDb;
+        try {
+            userLoginDb = userRepository.findByLogin(login);
+            if (login.equals(userLoginDb.getLogin())) {
+                addUserInfo = login + " - already REGISTERED. Please try with another LOGIN";
+            } else {
+                user.setLogin(login);
+                user.setPassword(DigestUtils.sha256Hex(password));
+                user.setEmail(email);
+                user.setFirstName(firstName);
+                user.setLastName(lastName);
+                user.setDateOfBirth(dateOfBirth);
+                user.setUserRole(userRole);
+                userRepository.save(user);
+                addUserInfo = login + " has been REGISTERED!";
+            }
+        } catch (NullPointerException ex) {
+            System.out.println("User registration error!!! " + ex.getMessage());
+        }
+        return addUserInfo;
     }
 
     @PostMapping(path = "/addAdmin")
     public @ResponseBody
-    boolean addAdmin(@RequestParam String login,
+    String addAdmin(@RequestParam String login,
                      @RequestParam String password,
                      @RequestParam String email,
                      @RequestParam UserAdminRoles userAdmin,
                      String firstName,
                      String lastName,
                      String dateOfBirth) {
-        User user = new User();
-        user.setLogin(login);
-        user.setPassword(DigestUtils.sha256Hex(password));
-        user.setEmail(email);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setDateOfBirth(dateOfBirth);
-        user.setUserAdmin(userAdmin);
-        userRepository.save(user);
-        return true;
+        String addUserInfo = null;
+        User userLoginDb;
+        try {
+            userLoginDb = userRepository.findByLogin(login);
+            if (login.equals(userLoginDb.getLogin())) {
+                addUserInfo = login + " - already REGISTERED. Please try with another LOGIN";
+            } else {
+                User user = new User();
+                user.setLogin(login);
+                user.setPassword(DigestUtils.sha256Hex(password));
+                user.setEmail(email);
+                user.setFirstName(firstName);
+                user.setLastName(lastName);
+                user.setDateOfBirth(dateOfBirth);
+                user.setUserAdmin(userAdmin);
+                userRepository.save(user);
+            }
+        } catch (NullPointerException ex) {
+            System.out.println("User registration error!!! " + ex.getMessage());
+        }
+        return addUserInfo;
     }
 
     @PostMapping(path = "/login")
