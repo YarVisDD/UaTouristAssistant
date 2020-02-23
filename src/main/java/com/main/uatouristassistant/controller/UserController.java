@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping(path = "/user")
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @PostMapping(path = "/addUser")
     public @ResponseBody
@@ -24,26 +27,31 @@ public class UserController {
                     String firstName,
                     String lastName,
                     String dateOfBirth) {
-        String addUserInfo = null;
+        String addUserInfo;
+        boolean checkLogin = false;
         User user = new User();
         User userLoginDb;
         try {
             userLoginDb = userRepository.findByLogin(login);
-            if (login.equals(userLoginDb.getLogin())) {
-                addUserInfo = login + " - already REGISTERED. Please try with another LOGIN";
-            } else {
-                user.setLogin(login);
-                user.setPassword(DigestUtils.sha256Hex(password));
-                user.setEmail(email);
-                user.setFirstName(firstName);
-                user.setLastName(lastName);
-                user.setDateOfBirth(dateOfBirth);
-                user.setUserRole(userRole);
-                userRepository.save(user);
-                addUserInfo = login + " has been REGISTERED!";
+            if (userLoginDb.getLogin().equals(login)){
+                checkLogin = true;
             }
-        } catch (NullPointerException ex) {
-            System.out.println("User registration error!!! " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+        if (checkLogin) {
+            addUserInfo = login + " - already REGISTERED. Please try with another LOGIN";
+        } else {
+            user.setLogin(login);
+            user.setPassword(DigestUtils.sha256Hex(password));
+            user.setEmail(email);
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setDateOfBirth(dateOfBirth);
+            user.setUserRole(userRole);
+            userRepository.save(user);
+            addUserInfo = login + " has been REGISTERED!";
         }
         return addUserInfo;
     }
@@ -57,25 +65,31 @@ public class UserController {
                      String firstName,
                      String lastName,
                      String dateOfBirth) {
-        String addUserInfo = null;
+        String addUserInfo;
+        boolean checkLogin = false;
+        User user = new User();
         User userLoginDb;
         try {
             userLoginDb = userRepository.findByLogin(login);
-            if (login.equals(userLoginDb.getLogin())) {
-                addUserInfo = login + " - already REGISTERED. Please try with another LOGIN";
-            } else {
-                User user = new User();
-                user.setLogin(login);
-                user.setPassword(DigestUtils.sha256Hex(password));
-                user.setEmail(email);
-                user.setFirstName(firstName);
-                user.setLastName(lastName);
-                user.setDateOfBirth(dateOfBirth);
-                user.setUserAdmin(userAdmin);
-                userRepository.save(user);
+            if (userLoginDb.getLogin().equals(login)){
+                checkLogin = true;
             }
-        } catch (NullPointerException ex) {
-            System.out.println("User registration error!!! " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+        if (checkLogin) {
+            addUserInfo = login + " - already REGISTERED. Please try with another LOGIN";
+        } else {
+            user.setLogin(login);
+            user.setPassword(DigestUtils.sha256Hex(password));
+            user.setEmail(email);
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setDateOfBirth(dateOfBirth);
+            user.setUserAdmin(userAdmin);
+            userRepository.save(user);
+            addUserInfo = login + " has been REGISTERED!";
         }
         return addUserInfo;
     }
