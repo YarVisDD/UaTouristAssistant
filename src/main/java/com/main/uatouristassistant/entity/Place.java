@@ -21,8 +21,17 @@ public class Place {
     private String imagePath;
     //TODO поміняти на юзера
     private String userName;
-    private String address;
-//    @OneToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "address_id")
-//    private Address address;
+//    private String address;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
+
+    @Override
+    public String toString() {
+        return "Place{" +
+                "idPlace=" + idPlace + ", placeName=" + placeName +
+                ", placeDescription=" + placeDescription +
+                ", placeType=" + placeType + ", imagePath=" + imagePath +
+                ", userName=" + userName + ", address=" + address.getIdAddress() +"}";
+    }
 }

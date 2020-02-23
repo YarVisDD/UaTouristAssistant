@@ -16,14 +16,18 @@ public class Address {
     private City city;
     private String street;
     private String numberHouse;
+    @OneToOne(mappedBy = "address", fetch = FetchType.EAGER)
+    private Place place;
 
     public Address() {}
 
     @Override
     public String toString() {
-        return "Address {id=" + idAddress +
-                ", city_id=" + city.getIdCity() +
-                ", street=" + street  +
-                ", numberHouse=" + numberHouse + "}";
+        return "Address{idAddress=" + idAddress +
+                ", city=" + city.getIdCity() +
+                ", street=" + street +
+                ", numberHouse=" + numberHouse + '\'' +
+                ", place=" + place +
+                '}';
     }
 }
