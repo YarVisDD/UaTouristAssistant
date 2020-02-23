@@ -11,17 +11,19 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idAddress;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "city_id")
-    private City cityName;
-    private String streetName;
+    private City city;
+    private String street;
     private String numberHouse;
 
     public Address() {}
 
-    public Address(City city, String streetName, String numberHouse) {
-        this.cityName = city;
-        this.streetName = streetName;
-        this.numberHouse = numberHouse;
+    @Override
+    public String toString() {
+        return "Address {id=" + idAddress +
+                ", city_id=" + city.getIdCity() +
+                ", street=" + street  +
+                ", numberHouse=" + numberHouse + "}";
     }
 }
