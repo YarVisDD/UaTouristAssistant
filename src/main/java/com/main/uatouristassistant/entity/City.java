@@ -20,17 +20,17 @@ public class City {
 
     @Override
     public String toString() {
-        String address = "";
-        if ((addresses != null) && (addresses.size() > 0)) {
-            for (int i = 0; i < addresses.size(); i++) {
-                if (i > 0) {
-                    address += ", ";
-                }
-                address += addresses.get(i).toString();
-            }
-        }
+//        String address = "";
+//        if ((addresses != null) && (addresses.size() > 0)) {
+//            for (int i = 0; i < addresses.size(); i++) {
+//                if (i > 0) {
+//                    address += ", ";
+//                }
+//                address += addresses.get(i).toString();
+//            }
+//        }
         return "City {id=" + idCity +
-                ", cityName=" + cityName +
-                ", addresses= [" + address + "]}";
+                ", cityName=" + cityName;
+//                ", addresses= [" + address + "]}";
     }
 }

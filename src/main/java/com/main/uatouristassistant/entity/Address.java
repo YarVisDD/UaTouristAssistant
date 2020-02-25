@@ -24,10 +24,10 @@ public class Address {
     @Override
     public String toString() {
         return "Address{idAddress=" + idAddress +
-                ", city=" + city.getIdCity() +
+                ", city=" + city.getCityName()+
                 ", street=" + street +
-                ", numberHouse=" + numberHouse + '\'' +
-                ", place=" + place +
-                '}';
+                ", numberHouse=" + numberHouse +
+//                ", place=" + place.getIdPlace() +
+                "}";
     }
 }

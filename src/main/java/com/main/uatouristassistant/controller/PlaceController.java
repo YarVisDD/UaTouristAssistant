@@ -4,7 +4,6 @@ import com.main.uatouristassistant.entity.*;
 import com.main.uatouristassistant.repository.AddressRepository;
 import com.main.uatouristassistant.repository.CityRepository;
 import com.main.uatouristassistant.repository.PlaceRepository;
-import com.sun.net.httpserver.HttpServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -88,6 +87,7 @@ public class PlaceController extends HttpServlet {
         place.setUserName(userName);
         place.setAddress(address);
         placeRepository.save(place);
+
         return place.toString();
     }
 
