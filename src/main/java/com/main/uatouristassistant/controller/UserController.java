@@ -1,7 +1,10 @@
 package com.main.uatouristassistant.controller;
 
 import com.main.uatouristassistant.entity.User;
+<<<<<<< HEAD
+=======
 import com.main.uatouristassistant.entity.UserAdminRoles;
+>>>>>>> develop
 import com.main.uatouristassistant.entity.UserRoles;
 import com.main.uatouristassistant.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
