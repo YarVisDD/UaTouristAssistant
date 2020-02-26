@@ -58,14 +58,14 @@ public class CommentAndRatingController {
 
     @DeleteMapping(path = "/delCommentAndRate")
     public @ResponseBody
-    String deleteCommentAndRate(@RequestParam Long userId) {
-        try {CommentAndRating commentAndRating=commentAndRatingRepository.findCommentAndRateByUserId(userId);
+    String deleteCommentAndRate(@RequestParam Long commendId) {
+        try {CommentAndRating commentAndRating=commentAndRatingRepository.findCommentAndRatingByCommentId(commendId);
             commentAndRatingRepository.delete(commentAndRating);
 
 
-            return "The comment and rate with userId " + userId + " has been deleted";
+            return "The comment " + commendId + " has been deleted";
         } catch (Exception ex) {
-            return "The user with userId " + userId + " does not exist!";
+            return "The comment " + commendId + " does not exist!";
         }
     }
 
