@@ -21,9 +21,9 @@ public class UserController {
                           @RequestParam String password,
                           @RequestParam String email,
                           @RequestParam UserRoles userRole,
-                          String firstName,
-                          String lastName,
-                          String dateOfBirth) {
+                          @RequestParam(required = false)String firstName,
+                          @RequestParam(required = false)String lastName,
+                          @RequestParam(required = false)String dateOfBirth) {
         String addUserInfo;
         boolean checkLogin = false;
         User user = new User();
