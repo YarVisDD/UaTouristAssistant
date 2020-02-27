@@ -3,10 +3,15 @@ package com.main.uatouristassistant.controller;
 import com.main.uatouristassistant.entity.User;
 import com.main.uatouristassistant.repository.UserRepository;
 import org.apache.commons.codec.digest.DigestUtils;
+import com.main.uatouristassistant.repository.PlaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,6 +23,9 @@ public class WebController {
 
     @Autowired
     UserController userController;
+
+    @Autowired
+    PlaceRepository placeRepository;
 
     @RequestMapping("/")
     public void handleRequest(HttpServletRequest request) {
@@ -71,5 +79,22 @@ public class WebController {
     public String updateUser(@RequestParam Long userId, HttpServletRequest request) {
         request.setAttribute("user", userRepository.findByUserId(userId));
         return "/update-user";
+    }
+
+    @RequestMapping("/add-place")
+    public String addPlacePage(HttpServletRequest request) {
+        return "add-place";
+    }
+
+    @GetMapping("/show-places")
+    public String showAllUsersPage(HttpServletRequest request) {
+        request.setAttribute("places", placeRepository.findAll());
+        return "show-places";
+    }
+
+    @RequestMapping("/delete-place")
+    public String deletePlace(@RequestParam Long idPlace, HttpServletRequest request) {
+        placeRepository.deleteById(idPlace);
+        return "redirect:/show-places";
     }
 }

@@ -1,21 +1,26 @@
 package com.main.uatouristassistant.controller;
 
-import com.main.uatouristassistant.entity.*;
+import com.main.uatouristassistant.entity.Address;
+import com.main.uatouristassistant.entity.City;
+import com.main.uatouristassistant.entity.Place;
+import com.main.uatouristassistant.entity.PlaceType;
 import com.main.uatouristassistant.repository.AddressRepository;
 import com.main.uatouristassistant.repository.CityRepository;
 import com.main.uatouristassistant.repository.PlaceRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServlet;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Controller
 @RequestMapping(path = "/place")
 public class PlaceController extends HttpServlet {
@@ -34,21 +39,22 @@ public class PlaceController extends HttpServlet {
     String projectDir = new File("").getAbsolutePath();
 
     @PostMapping(path = "/addPlace")
-    @ResponseBody
     public String addPlace(@RequestParam String placeName,
                            @RequestParam String placeDescription,
                            @RequestParam PlaceType placeType,
-                           @RequestParam("file") MultipartFile image,
+                           @RequestParam("image") MultipartFile image,
                            @RequestParam String userName,
                            @RequestParam String cityName,
                            @RequestParam String streetName,
                            @RequestParam String numberHouse) throws IOException {
 
         City city;
+
         if (cityRepository.findByCityName(cityName) == null) {
             city = new City();
             city.setCityName(cityName);
             cityRepository.save(city);
+            log.info("INFO!!! City has been created. City: {}", cityName);
         } else {
             city = cityRepository.findByCityName(cityName);
         }
@@ -90,13 +96,32 @@ public class PlaceController extends HttpServlet {
         place.setAddress(address);
         placeRepository.save(place);
 
-        return place.toString();
+        return "redirect:/show-places";
     }
 
-    @GetMapping(path = "/listAllPlace")
+    @GetMapping(path = "/allPlace")
     @ResponseBody
-    public String getAllPlace() {
-        List<Place> placeList = placeRepository.findAll();
-        return placeList.toString();
+    public Iterable<Place> getAllPlace() {
+        return placeRepository.findAll();
+    }
+
+    @GetMapping(path = "/onePlace")
+    @ResponseBody
+    public Place getPlace(@RequestParam Long idPlace) {
+        return placeRepository.findPlaceByIdPlace(idPlace);
+    }
+
+    @DeleteMapping(path = "/deletePlace")
+    @ResponseBody
+    public String deletePlace(@RequestParam Long idPlace) {
+        try {
+            Place place = placeRepository.findPlaceByIdPlace(idPlace);
+            placeRepository.deleteById(idPlace);
+            log.info("INFO!!! Place has ben delete: {}", place);
+            return "The place with idPlace " + idPlace + " has been delete";
+        } catch (Exception ex) {
+            log.error("ERROR!!! Tried to delete user which does not exist: {}", idPlace);
+            return "The place with idPlace " + idPlace + " does not exist!";
+        }
     }
 }

@@ -183,4 +183,3 @@
 	}
 
 }(this, document, jQuery));
-
