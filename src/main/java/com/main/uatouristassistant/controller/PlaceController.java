@@ -31,6 +31,8 @@ public class PlaceController extends HttpServlet {
     @Value("${upload.path}")
     private String imagePath;
 
+    String projectDir = new File("").getAbsolutePath();
+
     @PostMapping(path = "/addPlace")
     @ResponseBody
     public String addPlace(@RequestParam String placeName,
@@ -70,16 +72,16 @@ public class PlaceController extends HttpServlet {
         place.setPlaceType(placeType);
 
         if (image != null && !image.getOriginalFilename().isEmpty()) {
-            File uploadDir = new File(imagePath);
+            File uploadDir = new File(projectDir + imagePath);
 
-            if (uploadDir.exists()) {
+            if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
 
             String uuidImage = UUID.randomUUID().toString();
             String resultImageName = uuidImage + "." + image.getOriginalFilename();
 
-            image.transferTo(new File(imagePath + "/" + resultImageName));
+            image.transferTo(new File(projectDir + imagePath + "/" + resultImageName));
 
             place.setImagePath(resultImageName);
         }
