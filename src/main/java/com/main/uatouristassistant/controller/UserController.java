@@ -17,21 +17,30 @@ public class UserController {
     private UserRepository userRepository;
 
     @PostMapping(path = "/addUser")
-    public @ResponseBody
-    String addUser(@RequestParam String login,
-                   @RequestParam String password,
-                   @RequestParam String email,
-                   @RequestParam UserRoles userRole,
-                   @RequestParam(required = false) String firstName,
-                   @RequestParam(required = false) String lastName,
-                   @RequestParam(required = false) String dateOfBirth) {
+    public String addUser(@RequestParam String login,
+                          @RequestParam String password,
+                          @RequestParam String email,
+                          @RequestParam UserRoles userRole,
+                          @RequestParam(required = false)String firstName,
+                          @RequestParam(required = false)String lastName,
+                          @RequestParam(required = false)String dateOfBirth) {
         String addUserInfo;
-        boolean checkLogin = userRepository.existsByLogin(login);
+        boolean checkLogin = false;
+        User user = new User();
+        User userLoginDb;
+        try {
+            userLoginDb = userRepository.findByLogin(login);
+            if (userLoginDb.getLogin().equals(login)) {
+                checkLogin = true;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
         if (checkLogin) {
             addUserInfo = login + " - already REGISTERED. Please try with another LOGIN";
             log.warn("WARNING!!! User tried to be registered with existing login. Login: {}", login);
         } else {
-            User user = new User();
             user.setLogin(login);
             user.setPassword(DigestUtils.sha256Hex(password));
             user.setEmail(email);
@@ -50,16 +59,16 @@ public class UserController {
     @PostMapping(path = "/login")
     public @ResponseBody
     boolean userLogin(@RequestParam String login, @RequestParam String password) {
-        boolean loginInfo = false;
-        boolean checkLogin = userRepository.existsByLoginAndPassword(login, DigestUtils.sha256Hex(password));
-        if (checkLogin) {
-            loginInfo = true;
-            log.info("INFO!!! User logged in: {}", login);
-        } else {
-            System.out.println("Password or Login is incorrect");
-            log.warn("WARNING!!! Password or Login is incorrect. Login: {}", login);
-        }
-        return loginInfo;
+    boolean loginInfo = false;
+    boolean checkLogin = userRepository.existsByLoginAndPassword(login, DigestUtils.sha256Hex(password));
+    if (checkLogin) {
+        loginInfo = true;
+        log.info("INFO!!! User logged in: {}", login);
+    } else {
+        System.out.println("Password or Login is incorrect");
+        log.warn("WARNING!!! Password or Login is incorrect. Login: {}", login);
+    }
+    return loginInfo;
     }
 
     @GetMapping(path = "/list")
