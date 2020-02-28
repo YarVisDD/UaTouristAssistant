@@ -16,7 +16,7 @@
 </head>
 <body>
 <div role="navigation">
-    <div class="navbar navbar-in">
+    <div class="navbar navbar-inverse">
         <a href="/" class="navbar-brand">UA Tourist Assistant</a>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -31,37 +31,64 @@
 <div class="container text-center">
     <h3>New Place</h3>
     <hr>
-    <form class="form-horizontal" method="post" action="/place/addPlace">
-        <input type="hidden" name="id" value="${place.idPlace}"/>
+    <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/place/addPlace">
+<%--        <input type="hidden" name="id" value="${place.idPlace}"/>--%>
         <div class="form-group">
+            <label class="control-label col-md-3">Place name</label>
             <div class="col-md-7">
-                <input type="text" name="placeName" placeholder="Enter place name" value="${place.}"/>
+                <input class="form-control" type="text" name="placeName" placeholder="Enter place name" value="${place.placeName}"/>
             </div>
         </div>
-        <div>
-            <input type="text" name="placeDescription" placeholder="Enter place description"/>
+        <div class="form-group">
+            <label class="control-label col-md-3">Place description</label>
+            <div class="col-md-7">
+                <input class="form-control" type="text" name="placeDescription" placeholder="Enter place description" value="${place.placeDescription}"/>
+            </div>
         </div>
-        <div>
-
+        <div class="form-group">
+            <label class="control-label col-md-3">Place type</label>
+            <div class="col-md-7">
+                <select id="placeType" class="form-control" name="placeType" value="${place.placeType}">
+                    <option value="HOTELS">hotels</option>
+                    <option value="CAFE_RESTAURANTS">cafe or restaurants</option>
+                    <option value="MONUMENTS_OBJECTS">monuments and objects</option>
+                    <option value="ENTERTAINMENT">entertainment</option>
+                    <option value="MUSEUMS">museums</option>
+                </select>
+            </div>
         </div>
-        <div>
-            <input type="file" name="image" id="imageFile"/>
-            <label for="imageFile">choose image</label>
+        <div class="form-group">
+            <label class="control-label col-md-3">Choose image</label>
+            <div class="col-md-7">
+                <input class="form-control" type="file" name="image" value="${place.image}"/>
+            </div>
         </div>
-        <div>
-            <input type="text" name="userName" placeholder="Enter username"/>
+        <div class="form-group">
+            <label class="control-label col-md-3">Username</label>
+            <div class="col-md-7">
+                <input class="form-control" type="text" name="userName" placeholder="Enter username" value="${place.userName}"/>
+            </div>
         </div>
-        <div>
-            <input type="text" name="cityName" placeholder="Enter city"/>
+        <div class="form-group">
+            <label class="control-label col-md-3">City</label>
+            <div class="col-md-7">
+                <input class="form-control" type="text" name="cityName" placeholder="Enter city" value="${city.cityName}"/>
+            </div>
         </div>
-        <div>
-            <input type="text" name="streetName" placeholder="Enter street"/>
+        <div class="form-group">
+            <label class="control-label col-md-3">Street</label>
+            <div class="col-md-7">
+                <input class="form-control" type="text" name="streetName" placeholder="Enter street" value="${address.streetName}"/>
+            </div>
         </div>
-        <div>
-            <input type="text" name="numberHouse" placeholder="Enter numberHouser"/>
+        <div class="form-group">
+            <label class="control-label col-md-3">Number house</label>
+            <div class="col-md-7">
+                <input class="form-control" type="text" name="numberHouse" placeholder="Enter number house" value="${address.numberHouse}"/>
+            </div>
         </div>
-        <div>
-            <button type="submit">Add Place</button>
+        <div class="form-group ">
+            <input type="submit" class="btn btn-primary" value="Add Place"/>
         </div>
     </form>
 </div>
