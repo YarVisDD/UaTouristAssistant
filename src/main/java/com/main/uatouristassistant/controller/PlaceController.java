@@ -46,8 +46,7 @@ public class PlaceController extends HttpServlet {
                            @RequestParam String userName,
                            @RequestParam String cityName,
                            @RequestParam String streetName,
-                           @RequestParam String numberHouse,
-                           List<Object> model) throws IOException {
+                           @RequestParam String numberHouse) throws IOException {
 
         City city;
 
