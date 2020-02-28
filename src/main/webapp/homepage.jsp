@@ -1,4 +1,5 @@
 <!DOCTYPE html >
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
     <meta charset="utf-8">
@@ -6,7 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="sat, 01 Dec 2001 00:00:00 GMT">
-    <title>UA Tourist Assistant | Main</title>
+    <title>UA Tourist Assistant | HomePage</title>
     <link href="static/css/bootstrap.min.css" rel="stylesheet">
     <link href="static/css/style.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -31,9 +32,18 @@
 
 <div class="container" id="homediv">
     <div class="jumbotron text-center">
-        <h1>Welcome to<br>UA Tourist Assistant</h1>
-        <h3>You can find a lot of interesting places and enjoy your travel</h3>
+        <h1>Welcome </h1>
+        <h3>to<br>UA Tourist Assistant</h3>
     </div>
+</div>
+
+<div class="container text-centered">
+    <div class="alert alert-success">
+        <h4><center>You have just logged in!!!</center></h4>
+    </div>
+    <center><img src="images/careerbuilder-original-3120.gif"></center>
+    <br>
+    <center><img src="images/careerbuilder-original-3110.gif"></center>
 </div>
 
 <!-- Optional JavaScript -->

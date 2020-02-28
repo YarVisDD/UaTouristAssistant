@@ -1,39 +1,75 @@
 package com.main.uatouristassistant.controller;
 
+import com.main.uatouristassistant.entity.User;
+import com.main.uatouristassistant.repository.UserRepository;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class WebController {
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    UserController userController;
+
+    @RequestMapping("/")
+    public void handleRequest(HttpServletRequest request) {
+        throw new RuntimeException("UA Tourist exception");
+    }
+
     @GetMapping("/")
-    public String MainPage() {
+    public String mainPage() {
         return "index";
     }
 
-    @RequestMapping("/")
-    public void handleRequest() {
-        throw new RuntimeException("UA Tourist exception");
+    @PostMapping("/save-user")
+    public String saveUser(@ModelAttribute User user, BindingResult bindingResult, HttpServletRequest request){
+        userRepository.save(user);
+        return "redirect:/show-users";
     }
-/*
-    The code below was added for testing
-*/
-//    @Autowired
-//    private UserRepository userRepository;
-//
-//    @GetMapping("/registration")
-//    public String addUser(@RequestParam String login,
-//                          @RequestParam String password,
-//                          @RequestParam String email,
-//                          @RequestParam UserRoles userRole) {
-//        User user = new User(login, password, email, userRole);
-//        userRepository.save(user);
-//        return "index";
-//    }
-//
-//    @GetMapping("/login")
-//    public String login(@RequestParam String Login, @RequestParam String Password) {
-//        UserController userController = new UserController();
-//        return "Logged In!";
-//    }
+
+    @RequestMapping("/login")
+    public String loginPage(HttpServletRequest request) {
+        return "login";
+    }
+
+    @RequestMapping("/login-user")
+    public String loginUser(@ModelAttribute User user, HttpServletRequest request) {
+        if (userRepository.findByLoginAndPassword(user.getLogin(), DigestUtils.sha256Hex(user.getPassword()))!=null){
+            return "homepage";
+        } else {
+            request.setAttribute("error", "Invalid Username or Password");
+            return "login";
+        }
+    }
+
+    @RequestMapping("/registration")
+    public String registrationPage(HttpServletRequest request) {
+        return "registration";
+    }
+
+    @GetMapping("/show-users")
+    public String showAllUsersPage(HttpServletRequest request) {
+        request.setAttribute("users", userRepository.findAll());
+        return "show-users";
+    }
+
+    @RequestMapping("/delete-user")
+    public String deleteUser(@RequestParam Long userId, HttpServletRequest request){
+        userRepository.deleteById(userId);
+        return "redirect:/show-users";
+    }
+
+    @RequestMapping("/update-user")
+    public String updateUser(@RequestParam Long userId, HttpServletRequest request) {
+        request.setAttribute("user", userRepository.findByUserId(userId));
+        return "/update-user";
+    }
 }
