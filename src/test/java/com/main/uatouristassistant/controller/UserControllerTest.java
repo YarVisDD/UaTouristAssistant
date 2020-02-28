@@ -1,7 +1,6 @@
 package com.main.uatouristassistant.controller;
 
 import com.main.uatouristassistant.repository.UserRepository;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -43,7 +42,9 @@ class UserControllerTest {
 
         mvc.perform(MockMvcRequestBuilders.post(uri))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.is("testUser - already REGISTERED. Please try with another LOGIN")));
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
+//                .andExpect( MockMvcResultMatchers.jsonPath("$", MockMvcResultMatchers.redirectedUrl("/login.jsp")));
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.is("testUser - already REGISTERED. Please try with another LOGIN")));
     }
 }
