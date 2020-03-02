@@ -7,7 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="sat, 01 Dec 2001 00:00:00 GMT">
-    <title>UA Tourist Assistant | Users</title>
+    <title>UA Tourist Assistant | Add Place</title>
     <link href="static/css/bootstrap.min.css" rel="stylesheet">
     <link href="static/css/style.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -25,6 +25,7 @@
                 <li><a href="/login">Login</a></li>
                 <li><a href="/registration">New Registration</a></li>
                 <li><a href="/show-users">All Users</a></li>
+                <li><a href="/show-places">All Places</a></li>
             </ul>
         </div>
     </div>
