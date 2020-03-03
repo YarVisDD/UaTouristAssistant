@@ -23,5 +23,4 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
     List<Place> allPlaceInfo();
 
     Place findPlaceByIdPlace(Long idPlace);
-    Place deleteByIdPlace(Long idPlace);
 }
