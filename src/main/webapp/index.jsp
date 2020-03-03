@@ -24,7 +24,6 @@
                 <li><a href="/login">Login</a></li>
                 <li><a href="/registration">New Registration</a></li>
                 <li><a href="/show-users">All Users</a></li>
-                <li><a href="/show-places">All Places</a></li>
             </ul>
         </div>
     </div>
