@@ -14,8 +14,8 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
+
 <body>
 
 <jsp:include page="header.jsp" />
@@ -28,29 +28,33 @@
             <thead>
             <tr>
                 <th>Id</th>
-                <th>Login</th>
-                <th>Email</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Date of Birth</th>
-                <th>Role</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Image</th>
+                <th>User</th>
+                <th>City</th>
+                <th>Street</th>
+                <th>House</th>
                 <th>Delete</th>
                 <th>Edit</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="user" items="${users}">
+            <c:forEach var="place" items="${places}">
                 <tr>
-                    <td>${user.userId}</td>
-                    <td>${user.login}</td>
-                    <td>${user.email}</td>
-                    <td>${user.firstName}</td>
-                    <td>${user.lastName}</td>
-                    <td>${user.dateOfBirth}</td>
-                    <td>${user.userRole}</td>
-                    <td><a href="/delete-user?userId=${user.userId}"><span
+                    <td>${place.idPlace}</td>
+                    <td>${place.placeName}</td>
+                    <td>${place.placeDescription}</td>
+                    <td>${place.placeType}</td>
+                    <td id="placeListTg"><img src="images/place_img/${place.imagePath}" id="placeListImg" class="img-fluid" alt="img"/></td>
+                    <td>${place.userName}</td>
+                    <td>${place.address.city.cityName}</td>
+                    <td>${place.address.street}</td>
+                    <td>${place.address.numberHouse}</td>
+                    <td><a href="/delete-place?idPlace=${place.idPlace}"><span
                             class="glyphicon glyphicon-trash"></span></a></td>
-                    <td><a href="/update-user?userId=${user.userId}"><span
+                    <td><a href="#"><span
                             class="glyphicon glyphicon-pencil"></span></a></td>
                 </tr>
             </c:forEach>

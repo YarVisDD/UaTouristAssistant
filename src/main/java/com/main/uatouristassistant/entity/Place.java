@@ -3,8 +3,6 @@ package com.main.uatouristassistant.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -26,12 +24,4 @@ public class Place {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @Override
-    public String toString() {
-        return "Place{" +
-                "idPlace=" + idPlace + ", placeName=" + placeName +
-                ", placeDescription=" + placeDescription +
-                ", placeType=" + placeType + ", imagePath=" + imagePath +
-                ", userName=" + userName + ", address=" + address + "}";
-    }
 }
