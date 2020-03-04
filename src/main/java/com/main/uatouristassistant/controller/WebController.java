@@ -87,7 +87,7 @@ public class WebController {
     }
 
     @GetMapping("/show-places")
-    public String showAllUsersPage(HttpServletRequest request) {
+    public String showAllPlacesPage(HttpServletRequest request) {
         request.setAttribute("places", placeRepository.findAll());
         return "show-places";
     }
