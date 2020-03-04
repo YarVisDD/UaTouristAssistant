@@ -23,7 +23,7 @@
     <h3>Update User</h3>
     <hr>
     <form class="form-horizontal" method="POST" action="save-user">
-        <input type="hidden" name="id" value="${user.userId}" />
+        <input type="hidden" name="userId" value="${user.userId}" />
         <div class="form-group">
             <label class="control-label col-md-3">Login</label>
             <div class="col-md-7">
