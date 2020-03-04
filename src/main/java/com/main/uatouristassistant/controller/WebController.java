@@ -1,23 +1,21 @@
 package com.main.uatouristassistant.controller;
 
 import com.main.uatouristassistant.entity.User;
+import com.main.uatouristassistant.repository.PlaceRepository;
 import com.main.uatouristassistant.repository.UserRepository;
 import org.apache.commons.codec.digest.DigestUtils;
-import com.main.uatouristassistant.repository.PlaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import javax.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class WebController {
+
+    @Autowired
+    PlaceRepository placeRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -36,7 +34,7 @@ public class WebController {
     }
 
     @PostMapping("/save-user")
-    public String saveUser(@ModelAttribute User user, BindingResult bindingResult, HttpServletRequest request){
+    public String saveUser(@ModelAttribute User user, BindingResult bindingResult, HttpServletRequest request) {
         userRepository.save(user);
         return "redirect:/show-users";
     }
@@ -48,7 +46,7 @@ public class WebController {
 
     @RequestMapping("/login-user")
     public String loginUser(@ModelAttribute User user, HttpServletRequest request) {
-        if (userRepository.findByLoginAndPassword(user.getLogin(), DigestUtils.sha256Hex(user.getPassword()))!=null){
+        if (userRepository.findByLoginAndPassword(user.getLogin(), DigestUtils.sha256Hex(user.getPassword())) != null) {
             return "homepage";
         } else {
             request.setAttribute("error", "Invalid Username or Password");
@@ -68,7 +66,7 @@ public class WebController {
     }
 
     @RequestMapping("/delete-user")
-    public String deleteUser(@RequestParam Long userId, HttpServletRequest request){
+    public String deleteUser(@RequestParam Long userId, HttpServletRequest request) {
         userRepository.deleteById(userId);
         return "redirect:/show-users";
     }
