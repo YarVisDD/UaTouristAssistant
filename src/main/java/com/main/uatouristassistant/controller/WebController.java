@@ -25,9 +25,6 @@ public class WebController {
     @Autowired
     UserController userController;
 
-    @Autowired
-    PlaceRepository placeRepository;
-
     @RequestMapping("/")
     public void handleRequest(HttpServletRequest request) {
         throw new RuntimeException("UA Tourist exception");
