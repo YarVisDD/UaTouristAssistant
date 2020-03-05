@@ -22,7 +22,7 @@
     <h3>New Place</h3>
     <hr>
     <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/place/addPlace">
-<%--        <input type="hidden" name="id" value="${place.idPlace}"/>--%>
+        <input type="hidden" name="id" value="${place.idPlace}"/>
         <div class="form-group">
             <label class="control-label col-md-3">Place name</label>
             <div class="col-md-7">

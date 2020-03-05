@@ -116,7 +116,13 @@ public class PlaceController extends HttpServlet {
     public String deletePlace(@RequestParam Long idPlace) {
         try {
             Place place = placeRepository.findPlaceByIdPlace(idPlace);
-            placeRepository.deleteById(idPlace);
+            File file = new File(projectDir + imagePath + "/" + place.getImagePath());
+            if (file.delete()) {
+                log.info("INFO!!! File {} deleted successfully", file);
+            } else {
+                log.error("ERROR!!! File not found!");
+            }
+            placeRepository.delete(place);
             log.info("INFO!!! Place has ben delete: {}", place);
             return "The place with idPlace " + idPlace + " has been delete";
         } catch (Exception ex) {
