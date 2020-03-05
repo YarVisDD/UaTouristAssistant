@@ -21,7 +21,7 @@
 <div class="container text-center">
     <h3>New Place</h3>
     <hr>
-    <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/place/addPlace">
+    <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/place/save-place">
         <input type="hidden" name="id" value="${place.idPlace}"/>
         <div class="form-group">
             <label class="control-label col-md-3">Place name</label>

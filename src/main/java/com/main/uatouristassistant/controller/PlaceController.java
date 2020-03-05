@@ -20,7 +20,7 @@ public class PlaceController extends HttpServlet {
     @Autowired
     private PlaceService placeService;
 
-    @PostMapping("/addPlace")
+    @PostMapping("/save-place")
     public String addPlace(@RequestParam String placeName,
                            @RequestParam String placeDescription,
                            @RequestParam PlaceType placeType,
@@ -32,18 +32,18 @@ public class PlaceController extends HttpServlet {
 
         placeService.savePlace(placeName, placeDescription, placeType, image, userName, cityName, streetName, numberHouse);
 
-        return "redirect:place/show-places";
+        return "redirect:/place/show-places";
     }
 
     @RequestMapping("/add-place")
     public String addPlacePage(HttpServletRequest request) {
-        return "place/add-place";
+        return "/place/add-place";
     }
 
     @GetMapping("/show-places")
     public String showAllPlacesPage(HttpServletRequest request) {
         request.setAttribute("places", placeService.findAll());
-        return "place/show-places";
+        return "/place/show-places";
     }
 
     @GetMapping("/one-place")
