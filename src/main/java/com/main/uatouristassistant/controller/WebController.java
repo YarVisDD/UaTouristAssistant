@@ -1,15 +1,18 @@
 package com.main.uatouristassistant.controller;
 
+import com.main.uatouristassistant.entity.Place;
 import com.main.uatouristassistant.entity.User;
 import com.main.uatouristassistant.repository.PlaceRepository;
 import com.main.uatouristassistant.repository.UserRepository;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 
 @Controller
 public class WebController {
@@ -22,6 +25,11 @@ public class WebController {
 
     @Autowired
     UserController userController;
+
+    @Value("${upload.path}")
+    private String imagePath;
+
+    String projectDir = new File("").getAbsolutePath();
 
     @RequestMapping("/")
     public void handleRequest(HttpServletRequest request) {
@@ -90,6 +98,9 @@ public class WebController {
 
     @RequestMapping("/delete-place")
     public String deletePlace(@RequestParam Long idPlace, HttpServletRequest request) {
+        Place place = placeRepository.findPlaceByIdPlace(idPlace);
+        File file = new File(projectDir + imagePath + "/" + place.getImagePath());
+        file.delete();
         placeRepository.deleteById(idPlace);
         return "redirect:/show-places";
     }
