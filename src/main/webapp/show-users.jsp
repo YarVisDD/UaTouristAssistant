@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<jsp:include page="header.jsp" />
+<jsp:include page="navbar.jsp" />
 
 <div class="container text-center" id="tasksDiv">
     <h3>All Users</h3>
