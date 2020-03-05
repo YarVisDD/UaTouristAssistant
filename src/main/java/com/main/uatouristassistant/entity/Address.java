@@ -16,8 +16,8 @@ public class Address {
     private City city;
     private String street;
     private String numberHouse;
-//    @OneToOne(mappedBy = "address", fetch = FetchType.EAGER)
-//    private Place place;
+    @OneToOne(mappedBy = "address", fetch = FetchType.EAGER)
+    private Place place;
 
     public Address() {}
 
