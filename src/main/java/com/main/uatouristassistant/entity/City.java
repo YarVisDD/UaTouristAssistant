@@ -13,8 +13,8 @@ public class City {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCity;
     private String cityName;
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "city", cascade = CascadeType.ALL)
-//    private List<Address> addresses;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "city", cascade = CascadeType.ALL)
+    private List<Address> addresses;
 
     public City() {}
 }
