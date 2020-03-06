@@ -46,8 +46,8 @@ public class AddressController {
 
     @GetMapping("/listAddresses")
     @ResponseBody
-    public String llAddresses() {
-        String list = addressService.getAllAddresses();
+    public String AllAddresses() {
+        List<Address> list = addressService.getAllAddresses();
         return "addres/listAddress";
     }
 }

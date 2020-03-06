@@ -13,7 +13,7 @@ import java.util.List;
 
     @Service
    // @RequestMapping(path = "/address")
-    public class AddressService {
+    public class AddressService<list> {
         @Autowired
         private AddressRepository addressRepository;
 
@@ -46,8 +46,7 @@ import java.util.List;
 
         @GetMapping(path = "/listAddresses")
         @ResponseBody
-        public String getAllAddresses() {
-            List<Address> list = addressRepository.findAll();
-            return list.toString();
+        public List<Address> getAllAddresses() {
+            return addressRepository.findAll();
         }
     }
