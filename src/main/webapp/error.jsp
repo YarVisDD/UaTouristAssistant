@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="sat, 01 Dec 2001 00:00:00 GMT">
     <title>UA Tourist Assistant | Registration</title>
-    <link href="static/css/bootstrap.min.css" rel="stylesheet">
-    <link href="static/css/style.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -23,36 +23,38 @@
 </head>
 <body>
 
-<jsp:include page="header.jsp" />
+<jsp:include page="navbar.jsp" />
 
-<h1><a href="/">Home</a> | Error Page</h1>
-<table>
-    <tr>
-        <td>Date</td>
-        <td>${timestamp}</td>
-    </tr>
-    <tr>
-        <td>Error</td>
-        <td>${error}</td>
-    </tr>
-    <tr>
-        <td>Status</td>
-        <td>${status}</td>
-    </tr>
-    <tr>
-        <td>Message</td>
-        <td>${message}</td>
-    </tr>
-    <tr>
-        <td>Exception</td>
-        <td>${exception}</td>
-    </tr>
-    <tr>
-        <td>Trace</td>
-        <td>
-            <pre>${trace}</pre>
-        </td>
-    </tr>
-</table>
+<div class="container">
+    <h1><a href="/">Home</a> | Error Page</h1>
+    <table>
+        <tr>
+            <td>Date</td>
+            <td>${timestamp}</td>
+        </tr>
+        <tr>
+            <td>Error</td>
+            <td>${error}</td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td>${status}</td>
+        </tr>
+        <tr>
+            <td>Message</td>
+            <td>${message}</td>
+        </tr>
+        <tr>
+            <td>Exception</td>
+            <td>${exception}</td>
+        </tr>
+        <tr>
+            <td>Trace</td>
+            <td>
+                <pre>${trace}</pre>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
