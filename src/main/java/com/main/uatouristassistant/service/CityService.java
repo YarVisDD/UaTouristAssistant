@@ -9,8 +9,10 @@ import java.util.List;
 
 @Service
 public class CityService {
+
     @Autowired
     private CityRepository cityRepository;
+
     public String getAllAddresses() {
         List<City> list = cityRepository.findAll();
         return list.toString();
