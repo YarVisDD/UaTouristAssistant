@@ -6,47 +6,38 @@ import com.main.uatouristassistant.repository.AddressRepository;
 import com.main.uatouristassistant.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.util.List;
 
-    @Service
-   // @RequestMapping(path = "/address")
-    public class AddressService<list> {
-        @Autowired
-        private AddressRepository addressRepository;
+@Service
+public class AddressService<list> {
+    @Autowired
+    private AddressRepository addressRepository;
 
-        @Autowired
-        private CityRepository cityRepository;
+    @Autowired
+    private CityRepository cityRepository;
 
-       // @PostMapping(path = "addAddress")
-     //   @ResponseBody
-        public String saveAddress(@RequestParam String cityName,
-                                 @RequestParam String streetName,
-                                 @RequestParam String numberHouse) {
+    public void saveAddress( String cityName,
+                               String streetName,
+                               String numberHouse) {
 
-            City city;
-            if (cityRepository.findByCityName(cityName) == null) {
-                city = new City();
-                city.setCityName(cityName);
-                cityRepository.save(city);
-            } else {
-                city = cityRepository.findByCityName(cityName);
-            }
-
-            Address address = new Address();
-            address.setCity(city);
-            address.setStreet(streetName);
-            address.setNumberHouse(numberHouse);
-            addressRepository.save(address);
-
-            return address.toString();
+        City city;
+        if (cityRepository.findByCityName(cityName) == null) {
+            city = new City();
+            city.setCityName(cityName);
+            cityRepository.save(city);
+        } else {
+            city = cityRepository.findByCityName(cityName);
         }
 
-        @GetMapping(path = "/listAddresses")
-        @ResponseBody
-        public List<Address> getAllAddresses() {
-            return addressRepository.findAll();
-        }
+        Address address = new Address();
+        address.setCity(city);
+        address.setStreet(streetName);
+        address.setNumberHouse(numberHouse);
+        addressRepository.save(address);
     }
+
+    public List<Address> getAllAddresses() {
+        return addressRepository.findAll();
+    }
+}

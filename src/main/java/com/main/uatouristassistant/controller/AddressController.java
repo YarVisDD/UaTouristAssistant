@@ -1,24 +1,16 @@
 package com.main.uatouristassistant.controller;
 
 import com.main.uatouristassistant.entity.Address;
-import com.main.uatouristassistant.entity.City;
-import com.main.uatouristassistant.repository.AddressRepository;
-import com.main.uatouristassistant.repository.CityRepository;
 import com.main.uatouristassistant.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 @RequestMapping("/address")
 public class AddressController {
-   /* @Autowired
-    private AddressRepository addressRepository;
-    @Autowired
-    private CityRepository cityRepository;*/
 
     @Autowired
     private AddressService addressService;
@@ -46,8 +38,7 @@ public class AddressController {
 
     @GetMapping("/listAddresses")
     @ResponseBody
-    public String AllAddresses() {
-        List<Address> list = addressService.getAllAddresses();
-        return "addres/listAddress";
+        public Iterable<Address> AllAddreses() {
+            return addressService.getAllAddresses();
     }
 }
