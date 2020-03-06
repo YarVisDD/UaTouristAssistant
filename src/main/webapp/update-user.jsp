@@ -17,7 +17,7 @@
 </head>
 <body>
 
-<jsp:include page="header.jsp" />
+<jsp:include page="navbar.jsp" />
 
 <div class="container text-center">
     <h3>Update User</h3>

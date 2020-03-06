@@ -1,6 +1,5 @@
 package com.main.uatouristassistant.controller;
 
-import com.main.uatouristassistant.entity.Place;
 import com.main.uatouristassistant.entity.User;
 import com.main.uatouristassistant.repository.PlaceRepository;
 import com.main.uatouristassistant.repository.UserRepository;
@@ -83,25 +82,5 @@ public class WebController {
     public String updateUser(@RequestParam Long userId, HttpServletRequest request) {
         request.setAttribute("user", userRepository.findByUserId(userId));
         return "/update-user";
-    }
-
-    @RequestMapping("/add-place")
-    public String addPlacePage(HttpServletRequest request) {
-        return "add-place";
-    }
-
-    @GetMapping("/show-places")
-    public String showAllPlacesPage(HttpServletRequest request) {
-        request.setAttribute("places", placeRepository.findAll());
-        return "show-places";
-    }
-
-    @RequestMapping("/delete-place")
-    public String deletePlace(@RequestParam Long idPlace, HttpServletRequest request) {
-        Place place = placeRepository.findPlaceByIdPlace(idPlace);
-        File file = new File(projectDir + imagePath + "/" + place.getImagePath());
-        file.delete();
-        placeRepository.deleteById(idPlace);
-        return "redirect:/show-places";
     }
 }
