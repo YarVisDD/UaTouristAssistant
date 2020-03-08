@@ -84,6 +84,7 @@ public class UserService {
     }
 
     public User saveUser(User user) {
+        user.setPassword(DigestUtils.sha256Hex(user.getPassword()));
         return userRepository.save(user);
     }
 
