@@ -18,7 +18,7 @@
 
 <body>
 
-<jsp:include page="../navbar.jsp" />
+<jsp:include page="../include/navbar.jsp" />
 
 <div class="container text-center" id="tasksDiv">
     <h3>All Places</h3>

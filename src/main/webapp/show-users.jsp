@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<jsp:include page="navbar.jsp" />
+<jsp:include page="include/navbar.jsp" />
 
 <div class="container text-center" id="tasksDiv">
     <h3>All Users</h3>
@@ -50,7 +50,7 @@
                     <td>${user.userRole}</td>
                     <td><a href="/user/delete-user/${user.login}"><span
                             class="glyphicon glyphicon-trash"></span></a></td>
-                    <td><a href="/user/update-user/${user.userId}"><span
+                    <td><a href="/user/update-user/${user.login}"><span
                             class="glyphicon glyphicon-pencil"></span></a></td>
                 </tr>
             </c:forEach>
@@ -59,9 +59,7 @@
     </div>
 </div>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="static/js/jquery-1.11.1.min.js"></script>
-<script src="static/js/bootstrap.min.js"></script>
+<jsp:include page="include/footer.jsp" />
+
 </body>
 </html>

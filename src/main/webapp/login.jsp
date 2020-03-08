@@ -18,12 +18,12 @@
 </head>
 <body>
 
-<jsp:include page="navbar.jsp" />
+<jsp:include page="include/navbar.jsp" />
 
 <div class="container text-center">
     <h3>User Login</h3>
     <hr>
-    <form class="form-horizontal" method="POST" action="/user/login-user">
+    <form class="form-horizontal" method="POST" action="/login">
         <c:if test="${not empty error}">
             <div class= "alert alert-danger">
                 <c:out value="${error}"></c:out>
@@ -49,9 +49,7 @@
     </form>
 </div>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="static/js/jquery-1.11.1.min.js"></script>
-<script src="static/js/bootstrap.min.js"></script>
+<jsp:include page="include/footer.jsp" />
+
 </body>
 </html>
