@@ -30,8 +30,8 @@ class UserControllerTest {
 
     @Test
     void addUser() throws Exception {
-        Mockito.when(userRepository.existsByLogin(eq("testUser")))
-                .thenReturn(true);
+      // Mockito.when(userRepository.existsByLogin(eq("testUser")))
+        //        .thenReturn(true);
 
         URI uri = UriComponentsBuilder.fromPath("/user/addUser")
                 .queryParam("login", "testUser")
