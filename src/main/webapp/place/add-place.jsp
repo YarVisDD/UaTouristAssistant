@@ -16,7 +16,7 @@
 </head>
 <body>
 
-<jsp:include page="../navbar.jsp" />
+<jsp:include page="../include/navbar.jsp" />
 
 <div class="container text-center">
     <h3>New Place</h3>

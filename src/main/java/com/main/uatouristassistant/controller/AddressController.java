@@ -1,51 +1,44 @@
 package com.main.uatouristassistant.controller;
 
 import com.main.uatouristassistant.entity.Address;
-import com.main.uatouristassistant.entity.City;
-import com.main.uatouristassistant.repository.AddressRepository;
-import com.main.uatouristassistant.repository.CityRepository;
+import com.main.uatouristassistant.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping(path = "/address")
+@RequestMapping("/address")
 public class AddressController {
-    @Autowired
-    private AddressRepository addressRepository;
-    @Autowired
-    private CityRepository cityRepository;
 
-    @PostMapping(path = "addAddress")
+    @Autowired
+    private AddressService addressService;
+
+    @PostMapping("/addAddress")
     @ResponseBody
     public String addAddress(@RequestParam String cityName,
                              @RequestParam String streetName,
                              @RequestParam String numberHouse) {
-
-        City city;
-        if (cityRepository.findByCityName(cityName) == null) {
-            city = new City();
-            city.setCityName(cityName);
-            cityRepository.save(city);
-        } else {
-            city = cityRepository.findByCityName(cityName);
-        }
-
-        Address address = new Address();
-        address.setCity(city);
-        address.setStreet(streetName);
-        address.setNumberHouse(numberHouse);
-        addressRepository.save(address);
-
-        return address.toString();
+        addressService.saveAddress(cityName, streetName, numberHouse);
+        return "redirect:address/show-addresses";
     }
 
-    @GetMapping(path = "/listAddresses")
+    @RequestMapping("/add-address")
+
+    public String addAddressPage(HttpServletRequest request) {
+        return "address/add-address";
+    }
+
+    @GetMapping("/show-addresses")
+    public String showAllPlacesPage(HttpServletRequest request) {
+        request.setAttribute("addres", addressService.getAllAddresses());
+        return "addres/show-addresses";
+    }
+
+    @GetMapping("/listAddresses")
     @ResponseBody
-    public String getAllAddresses() {
-        List<Address> list = addressRepository.findAll();
-        return list.toString();
+        public Iterable<Address> AllAddreses() {
+            return addressService.getAllAddresses();
     }
 }

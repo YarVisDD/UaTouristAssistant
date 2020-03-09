@@ -18,11 +18,13 @@
 </head>
 <body>
 
-<jsp:include page="navbar.jsp" />
+<jsp:include page="include/navbar.jsp" />
 
 <div class="container" id="homediv">
     <div class="jumbotron text-center">
-        <h1>Welcome </h1>
+        <h1>Welcome,
+            <% out.print(session.getAttribute("userLogin")); %>
+        </h1>
         <h3>to<br>UA Tourist Assistant</h3>
     </div>
 </div>
@@ -36,9 +38,7 @@
     <center><img src="/images/careerbuilder-original-3110.gif"></center>
 </div>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="/static/js/jquery-1.11.1.min.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
+<jsp:include page="include/footer.jsp" />
+
 </body>
 </html>

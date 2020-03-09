@@ -18,11 +18,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/login")
-    public String loginPage(HttpServletRequest request) {
-        return "login";
-    }
-
     @RequestMapping("/registration")
     public String registrationPage(HttpServletRequest request) {
         return "registration";
@@ -38,7 +33,7 @@ public class UserController {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getDateOfBirth());
-        if (registration) return "redirect:/user/login";
+        if (registration) return "redirect:/login";
         else {
             request.setAttribute("error", "Username or Email already registered");
             return "registration";
@@ -79,9 +74,9 @@ public class UserController {
         return "redirect:show-users";
     }
 
-    @RequestMapping("/update-user/{userId}")
-    public String updateUser(@PathVariable Long userId, HttpServletRequest request) {
-        request.setAttribute("user", userService.findUser(userId));
+    @RequestMapping("/update-user/{login}")
+    public String updateUser(@PathVariable String login, HttpServletRequest request) {
+        request.setAttribute("user", userService.findUserByLogin(login));
         return "/update-user";
     }
 }
