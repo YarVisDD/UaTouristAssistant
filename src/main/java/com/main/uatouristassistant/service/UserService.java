@@ -84,10 +84,11 @@ public class UserService {
     }
 
     public User saveUser(User user) {
+        user.setPassword(DigestUtils.sha256Hex(user.getPassword()));
         return userRepository.save(user);
     }
 
-    public User findUser(@RequestParam Long userId) {
-        return userRepository.findByUserId(userId);
+    public User findUserByLogin(@RequestParam String login) {
+        return userRepository.findByLogin(login);
     }
 }

@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<jsp:include page="navbar.jsp" />
+<jsp:include page="include/navbar.jsp" />
 
 <div class="container text-center">
     <h3>New Registration</h3>
@@ -87,9 +87,7 @@
     </form>
 </div>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="static/js/jquery-1.11.1.min.js"></script>
-<script src="static/js/bootstrap.min.js"></script>
+<jsp:include page="include/footer.jsp" />
+
 </body>
 </html>
