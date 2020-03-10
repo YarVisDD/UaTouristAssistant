@@ -3,6 +3,7 @@ package com.main.uatouristassistant.controller;
 import com.main.uatouristassistant.entity.User;
 import com.main.uatouristassistant.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -17,11 +18,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @RequestMapping("/login")
-    public String loginPage(HttpServletRequest request) {
-        return "login";
-    }
 
     @RequestMapping("/registration")
     public String registrationPage(HttpServletRequest request) {
@@ -38,7 +34,7 @@ public class UserController {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getDateOfBirth());
-        if (registration) return "redirect:/user/login";
+        if (registration) return "redirect:/login";
         else {
             request.setAttribute("error", "Username or Email already registered");
             return "registration";
@@ -75,13 +71,14 @@ public class UserController {
 
     @PostMapping("/save-user")
     public String saveUser(@ModelAttribute User user, BindingResult bindingResult, HttpServletRequest request) {
+        user.setPassword(DigestUtils.sha256Hex(user.getPassword()));
         userService.saveUser(user);
         return "redirect:show-users";
     }
 
-    @RequestMapping("/update-user/{userId}")
-    public String updateUser(@PathVariable Long userId, HttpServletRequest request) {
-        request.setAttribute("user", userService.findUser(userId));
+    @RequestMapping("/update-user/{login}")
+    public String updateUser(@PathVariable String login, HttpServletRequest request) {
+        request.setAttribute("user", userService.findUserByLogin(login));
         return "/update-user";
     }
 }
