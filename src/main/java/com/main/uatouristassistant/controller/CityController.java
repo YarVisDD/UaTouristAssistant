@@ -1,6 +1,7 @@
 package com.main.uatouristassistant.controller;
 
 import com.main.uatouristassistant.entity.City;
+import com.main.uatouristassistant.entity.Place;
 import com.main.uatouristassistant.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,12 @@ public class CityController {
     public String showAllCityPage(HttpServletRequest request) {
         request.setAttribute("city", cityService.getAllCity());
         return "/city/show-cities";
+    }
+
+    @GetMapping("/one-city")
+    @ResponseBody
+    public City getCity(@RequestParam String cityName) {
+        return cityService.findCity(cityName);
     }
 
     @RequestMapping("/update-city/{cityName}")

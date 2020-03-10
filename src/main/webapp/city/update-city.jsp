@@ -30,7 +30,7 @@
     <h3>Update City</h3>
     <hr>
     <form class="form-horizontal" method="POST" action="/city/save-city">
-        <input type="hidden" name="id" value="${city.idCity}"/>
+        <input type="hidden" name="idCity" value="${city.idCity}"/>
         <div class="form-group">
             <label class="control-label col-md-3">City Name</label>
             <div class="col-md-7">
