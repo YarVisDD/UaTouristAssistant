@@ -21,10 +21,7 @@ public class CityController {
         return cityService.getAllCity();
     }
 
-
-
     @PostMapping("/save-city")
-    @ResponseBody
     public String addCity(@RequestParam String cityName) {
         cityService.saveCity(cityName);
         return "redirect:city/show-cities";
