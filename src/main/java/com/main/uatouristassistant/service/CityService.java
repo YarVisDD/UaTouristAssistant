@@ -1,6 +1,7 @@
 package com.main.uatouristassistant.service;
 
 import com.main.uatouristassistant.entity.City;
+import com.main.uatouristassistant.entity.User;
 import com.main.uatouristassistant.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,10 @@ public class CityService {
         } else {
             city = cityRepository.findByCityName(cityName);
         }
+    }
+
+    public City saveCity(City city) {
+        return cityRepository.save(city);
     }
 
     public City findCity(String cityName) {
