@@ -18,8 +18,9 @@ public class Place {
 //    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<Images> imagesPath;
     private String imagePath;
-    //TODO поміняти на юзера
-    private String userName;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;

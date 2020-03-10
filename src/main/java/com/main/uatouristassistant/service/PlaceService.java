@@ -31,6 +31,9 @@ public class PlaceService {
     @Autowired
     private CityRepository cityRepository;
 
+    @Autowired
+    private UserService userService;
+
     @Value("${upload.path}")
     private String imagePath;
 
@@ -40,7 +43,7 @@ public class PlaceService {
                           String placeDescription,
                           PlaceType placeType,
                           MultipartFile image,
-                          String userName,
+                          String login,
                           String cityName,
                           String streetName,
                           String numberHouse) {
@@ -92,7 +95,7 @@ public class PlaceService {
             place.setImagePath(resultImageName);
         }
 
-        place.setUserName(userName);
+        place.setUser(userService.getUser(login));
         place.setAddress(address);
         placeRepository.save(place);
     }

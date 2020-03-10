@@ -56,7 +56,16 @@
         <div class="form-group">
             <label class="control-label col-md-3">Username</label>
             <div class="col-md-7">
-                <input class="form-control" type="text" name="userName" placeholder="Enter username" value="${place.userName}"/>
+                <%
+                    Object userLogin = session.getAttribute("userLogin");
+                    if (userLogin != null) {
+                        out.print("<input class=\"form-control\" type=\"text\" name=\"login\" placeholder=\"Enter username\" value=" + userLogin + " readonly/>");
+                    } else {
+                        out.print("<li><a href=\"/user/update-user/" + userLogin + "\">Profile</a></li>");
+                        out.print("<li><a href=\"/logout\">Log Out</a></li>");
+                    }
+                %>
+<%--                <input class="form-control" type="text" name="login" placeholder="Enter username" value="<% session.getAttribute("userLogin"); %>" readonly/>--%>
             </div>
         </div>
         <div class="form-group">

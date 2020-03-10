@@ -48,7 +48,7 @@
                     <td>${place.placeDescription}</td>
                     <td>${place.placeType}</td>
                     <td id="placeListTg"><img src="../images/place_img/${place.imagePath}" id="placeListImg" class="img-fluid" alt="img"/></td>
-                    <td>${place.userName}</td>
+                    <td>${place.user.login}</td>
                     <td>${place.address.city.cityName}</td>
                     <td>${place.address.street}</td>
                     <td>${place.address.numberHouse}</td>

@@ -25,12 +25,12 @@ public class PlaceController extends HttpServlet {
                            @RequestParam String placeDescription,
                            @RequestParam PlaceType placeType,
                            @RequestParam("image") MultipartFile image,
-                           @RequestParam String userName,
+                           String login,
                            @RequestParam String cityName,
                            @RequestParam String streetName,
                            @RequestParam String numberHouse) {
 
-        placeService.savePlace(placeName, placeDescription, placeType, image, userName, cityName, streetName, numberHouse);
+        placeService.savePlace(placeName, placeDescription, placeType, image, login, cityName, streetName, numberHouse);
 
         return "redirect:/place/show-places";
     }
