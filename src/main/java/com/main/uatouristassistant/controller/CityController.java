@@ -24,23 +24,23 @@ public class CityController {
     @PostMapping("/save-city")
     public String addCity(@RequestParam String cityName) {
         cityService.saveCity(cityName);
-        return "redirect:city/show-cities";
+        return "redirect:/city/show-cities";
     }
 
     @RequestMapping("/add-city")
     public String addCityPage(HttpServletRequest request) {
-        return "city/add-city";
+        return "/city/add-city";
     }
 
     @GetMapping("/show-cities")
     public String showAllCityPage(HttpServletRequest request) {
         request.setAttribute("city", cityService.getAllCity());
-        return "city/show-cities";
+        return "/city/show-cities";
     }
 
     @RequestMapping("/update-city/{cityName}")
     public String updateCity(@PathVariable String cityName, HttpServletRequest request) {
         request.setAttribute("city", cityService.findCity(cityName));
-        return "/update-city";
+        return "/city/update-city";
     }
 }

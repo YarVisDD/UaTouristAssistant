@@ -23,24 +23,19 @@
 </head>
 <body>
 
-<jsp:include page="navbar.jsp" />
+<jsp:include page="../navbar.jsp"/>
 
 <div class="container text-center">
     <h3>New City</h3>
     <hr>
     <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/city/save-city">
-        <input type="hidden" name="id" value="${city.idCity}"/>
-        <div class="form-group">
-            <label class="control-label col-md-3">City name</label>
-            <div class="col-md-7">
-                <input class="form-control" type="text" name="cityName" placeholder="Enter place name" value="${city.cityName}"/>
-            </div>
-        </div>
-
+       <input type="hidden" name="id" value="${city.idCity}"/>
+        <input type="hidden" name="cityName" value="${city.cityName}"/>
         <div class="form-group">
             <label class="control-label col-md-3">City</label>
             <div class="col-md-7">
-                <input class="form-control" type="text" name="cityName" placeholder="Enter city" value="${city.cityName}"/>
+                <input class="form-control" type="text" name="cityName" placeholder="Enter city"
+                       value="${city.cityName}"/>
             </div>
         </div>
 

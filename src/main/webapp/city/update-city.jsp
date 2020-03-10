@@ -24,23 +24,23 @@
 </head>
 <body>
 
-<jsp:include page="navbar.jsp" />
+<jsp:include page="../navbar.jsp" />
 
 <div class="container text-center">
     <h3>Update City</h3>
     <hr>
     <form class="form-horizontal" method="POST" action="/city/save-city">
-        <input type="hidden" name="idCity" value="${city.cityName}" />
+        <input type="hidden" name="id" value="${city.idCity}"/>
         <div class="form-group">
-            <label class="control-label col-md-3">Login</label>
+            <label class="control-label col-md-3">City Name</label>
             <div class="col-md-7">
-                <input type="text" class="form-control" name="login"
-                       value="${user.login}"/>
+                <input type="text" class="form-control" name="cityName"
+                       value="${city.cityName}"/>
             </div>
         </div>
 
         <div class="form-group ">
-            <a href="/user/show-users" class="btn btn-info" role="button">Back</a>
+            <a href="/city/show-cities" class="btn btn-info" role="button">Back</a>
             <input type="submit" class="btn btn-primary" value="Update" />
         </div>
     </form>
@@ -48,7 +48,7 @@
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="static/js/jquery-1.11.1.min.js"></script>
-<script src="static/js/bootstrap.min.js"></script>
+<script src="../static/js/jquery-1.11.1.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
 </body>
 </html>

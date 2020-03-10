@@ -25,7 +25,7 @@
 </head>
 <body>
 
-<jsp:include page="navbar.jsp" />
+<jsp:include page="../navbar.jsp" />
 
 <div class="container text-center" id="tasksDiv">
     <h3>All Cities</h3>
@@ -41,7 +41,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="city" items="${cities}">
+            <c:forEach var="city" items="${city}">
                 <tr>
                     <td>${city.idCity}</td>
                     <td>${city.cityName}</td>
@@ -58,7 +58,7 @@
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="static/js/jquery-1.11.1.min.js"></script>
-<script src="static/js/bootstrap.min.js"></script>
+<script src="../static/js/jquery-1.11.1.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
 </body>
 </html>
