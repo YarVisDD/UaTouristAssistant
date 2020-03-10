@@ -6,8 +6,8 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/homepage">Home</a></li>
                     <li><a href="/user/show-users">All Users</a></li>
-
-                    <%--                    <li><a href="/place/show-places">All Place</a></li>--%>
+                    <li><a href="/place/add-place">Add Place</a></li>
+                    <li><a href="/place/show-places">All Place</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <%
@@ -16,7 +16,6 @@
                             out.print("<li><a href=\"/login\">Login</a></li>\n");
                             out.print("<li><a href=\"/user/registration\">Registration</a></li>");
                         } else {
-                            out.print("<li><a href=\"/place/add-place\">Add Place</a></li>");
                             out.print("<li><a href=\"/user/update-user/" + userLogin + "\">Profile</a></li>");
                             out.print("<li><a href=\"/logout\">Log Out</a></li>");
                         }
