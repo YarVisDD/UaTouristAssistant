@@ -1,7 +1,6 @@
 package com.main.uatouristassistant.controller;
 
 import com.main.uatouristassistant.entity.City;
-import com.main.uatouristassistant.entity.Place;
 import com.main.uatouristassistant.entity.User;
 import com.main.uatouristassistant.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping(path = "/city")
-public class CityController {
+public class    CityController {
 
     @Autowired
     private CityService cityService;
@@ -30,11 +29,20 @@ public class CityController {
         return "redirect:/city/show-cities";
     }
 
-    @RequestMapping("/add-city")
+   /* @RequestMapping("/add-city")
     public String addCityPage(@ModelAttribute City city, HttpServletRequest requestt) {
         return "/city/add-city";
-    }
+    }*/
 
+    @PostMapping(path = "/add-city")
+    public String addCity(@ModelAttribute City city, HttpServletRequest request) {
+        boolean addCity = cityService.addCity(city.getCityName());
+        if (addCity) return "redirect:/city/show-cities";
+        else {
+            request.setAttribute("error", "CityName already registered");
+            return "/city/add-city";
+        }
+    }
     @GetMapping("/show-cities")
     public String showAllCityPage(HttpServletRequest request) {
         request.setAttribute("city", cityService.getAllCity());

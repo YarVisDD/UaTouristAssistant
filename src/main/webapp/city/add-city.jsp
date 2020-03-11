@@ -28,10 +28,10 @@
 <div class="container text-center">
     <h3>New City</h3>
     <hr>
-    <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/city/save-city">
+    <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/city/add-city">
         <input type="hidden" name="idCity" value="${city.idCity}"/>
         <div class="form-group">
-            <label class="control-label col-md-3">City</label>
+            <label class="control-label col-md-3">City name</label>
             <div class="col-md-7">
                 <input class="form-control" type="text" name="cityName" placeholder="Enter city"
                        value="${city.cityName}"/>

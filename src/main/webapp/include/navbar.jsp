@@ -8,6 +8,8 @@
                     <li><a href="/user/show-users">All Users</a></li>
                     <li><a href="/place/add-place">Add Place</a></li>
                     <li><a href="/place/show-places">All Place</a></li>
+                    <li><a href="/city/add-city">Add City</a></li>
+                    <li><a href="/city/show-cities">All Cities</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <%
