@@ -1,7 +1,6 @@
 package com.main.uatouristassistant.controller;
 
 import com.main.uatouristassistant.entity.City;
-import com.main.uatouristassistant.entity.User;
 import com.main.uatouristassistant.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +33,7 @@ public class    CityController {
         return "/city/add-city";
     }*/
 
-    @PostMapping(path = "/add-city")
+    @GetMapping (path = "/add-city")
     public String addCity(@ModelAttribute City city, HttpServletRequest request) {
         boolean addCity = cityService.addCity(city.getCityName());
         if (addCity) return "redirect:/city/show-cities";
