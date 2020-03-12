@@ -24,23 +24,14 @@ public class CityController {
 
     @PostMapping("/save-city")
     public String saveCity(@ModelAttribute City city, BindingResult bindingResult, HttpServletRequest request) {
-        cityService.saveCity(city);
+        boolean checkCity = cityService.checkCity(city.getCityName());
+        if (!checkCity) cityService.saveCity(city);
         return "redirect:/city/show-cities";
     }
 
-   /* @RequestMapping("/add-city")
-    public String addCityPage(@ModelAttribute City city, HttpServletRequest requestt) {
-        return "/city/add-city";
-    }*/
-
     @GetMapping(path = "/add-city")
     public String addCity(@ModelAttribute City city, HttpServletRequest request) {
-        boolean addCity = cityService.addCity(city.getCityName());
-        if (addCity) return "redirect:/city/show-cities";
-        else {
-            request.setAttribute("error", "CityName already registered");
-            return "/city/add-city";
-        }
+        return "/city/add-city";
     }
 
     @GetMapping("/show-cities")
