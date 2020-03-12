@@ -36,7 +36,7 @@
             <tr>
                 <th>Id City</th>
                 <th>City Name</th>
-               <%-- <th>Delete</th>--%>
+                <th>Delete</th>
                 <th>Edit</th>
             </tr>
             </thead>
@@ -45,8 +45,8 @@
                 <tr>
                     <td>${city.idCity}</td>
                     <td>${city.cityName}</td>
-                  <%--  <td><a href="/user/delete-user/${user.login}"><span
-                            class="glyphicon glyphicon-trash"></span></a></td>--%>
+                    <td><a href="/city/delete-city/${city.cityName}"><span
+                            class="glyphicon glyphicon-trash"></span></a></td>
                     <td><a href="/city/update-city/${city.cityName}"><span
                             class="glyphicon glyphicon-pencil"></span></a></td>
                 </tr>

@@ -1,10 +1,12 @@
 package com.main.uatouristassistant.service;
 
 import com.main.uatouristassistant.entity.City;
+import com.main.uatouristassistant.entity.User;
 import com.main.uatouristassistant.repository.CityRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -60,5 +62,20 @@ public class CityService {
         }
         System.out.println(addCityInfo);
         return checkCityName;
+    }
+
+
+    public boolean deleteCity(@PathVariable String cityName) {
+        try {
+            City city = cityRepository.findByCityName(cityName);
+            cityRepository.delete(city);
+            log.info("INFO!!! City has ben deleted: {}", city);
+            System.out.println("The city with cityName" + cityName + " has been deleted");
+            return true;
+        } catch (Exception ex) {
+            log.error("ERROR!!! Tried to delete city which does not exist: {}", cityName);
+            System.out.println("The city with cityName " + cityName + " does not exist!");
+            return false;
+        }
     }
 }

@@ -53,4 +53,10 @@ public class    CityController {
         request.setAttribute("city", cityService.findCity(cityName));
         return "/city/update-city";
     }
+
+    @GetMapping("/delete-city/{cityName}")
+    public String deleteCity(@PathVariable String cityName) {
+        if (cityService.deleteCity(cityName)) return "redirect:/city/show-cities";
+        else return "redirect:/error";
+    }
 }
