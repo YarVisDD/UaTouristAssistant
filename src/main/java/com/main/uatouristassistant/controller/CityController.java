@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping(path = "/city")
-public class    CityController {
+public class CityController {
 
     @Autowired
     private CityService cityService;
@@ -23,7 +23,7 @@ public class    CityController {
     }
 
     @PostMapping("/save-city")
-    public String saveCity(@ModelAttribute City city,BindingResult bindingResult,HttpServletRequest request) {
+    public String saveCity(@ModelAttribute City city, BindingResult bindingResult, HttpServletRequest request) {
         cityService.saveCity(city);
         return "redirect:/city/show-cities";
     }
@@ -33,7 +33,7 @@ public class    CityController {
         return "/city/add-city";
     }*/
 
-    @GetMapping (path = "/add-city")
+    @GetMapping(path = "/add-city")
     public String addCity(@ModelAttribute City city, HttpServletRequest request) {
         boolean addCity = cityService.addCity(city.getCityName());
         if (addCity) return "redirect:/city/show-cities";
@@ -42,6 +42,7 @@ public class    CityController {
             return "/city/add-city";
         }
     }
+
     @GetMapping("/show-cities")
     public String showAllCityPage(HttpServletRequest request) {
         request.setAttribute("city", cityService.getAllCity());

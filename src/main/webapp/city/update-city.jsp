@@ -24,7 +24,7 @@
 </head>
 <body>
 
-<jsp:include page="../navbar.jsp" />
+<jsp:include page="../include/navbar.jsp"/>
 
 <div class="container text-center">
     <h3>Update City</h3>
