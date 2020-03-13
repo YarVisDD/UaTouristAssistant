@@ -3,6 +3,7 @@ package com.main.uatouristassistant.controller;
 import com.main.uatouristassistant.entity.User;
 import com.main.uatouristassistant.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -70,6 +71,7 @@ public class UserController {
 
     @PostMapping("/save-user")
     public String saveUser(@ModelAttribute User user, BindingResult bindingResult, HttpServletRequest request) {
+        user.setPassword(DigestUtils.sha256Hex(user.getPassword()));
         userService.saveUser(user);
         return "redirect:show-users";
     }
