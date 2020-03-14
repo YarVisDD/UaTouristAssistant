@@ -101,6 +101,14 @@ public class PlaceService {
         return placeRepository.findAll();
     }
 
+    public List<Place> findByPlaceTypeAndAddress_City_CityName(PlaceType placeType, String city) {
+        return placeRepository.findByPlaceTypeAndAddress_City_CityName(placeType, city);
+    }
+
+    public List<Place> findByAddress_City_CityName(String city) {
+        return placeRepository.findByAddress_City_CityName(city);
+    }
+
     public Place getPlaceById(Long idPlace) {
         return placeRepository.findPlaceByIdPlace(idPlace);
     }
