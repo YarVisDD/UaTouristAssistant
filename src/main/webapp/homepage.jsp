@@ -1,5 +1,5 @@
 <!DOCTYPE html >
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<jsp:include page="include/navbar.jsp" />
+<jsp:include page="include/navbar.jsp"/>
 
 <div class="container" id="homediv">
     <div class="jumbotron text-center">
@@ -29,16 +29,46 @@
     </div>
 </div>
 
-<div class="container text-centered">
-    <div class="alert alert-success">
-        <h4><center>You have just logged in!!!</center></h4>
-    </div>
-    <center><img src="/images/careerbuilder-original-3120.gif"></center>
-    <br>
-    <center><img src="/images/careerbuilder-original-3110.gif"></center>
+<div class="container text-center">
+    <h3>Please choose where you want to spend your time</h3>
+    <hr>
+    <form class="form-horizontal" method="post" action="/place/show-places-by-type">
+        <div class="form-group">
+            <label class="control-label col-md-3">City</label>
+            <div class="col-md-7">
+                <select id="city" class="form-control" name="city" value="city">
+                    <c:forEach items="${listCities}" var="city">
+                        <option value="${city.cityName}">${city.cityName}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Place type</label>
+            <div class="col-md-7">
+                <select id="placeType" class="form-control" name="placeType" value="${place.placeType}">
+                    <option value="ALL">All</option>
+                    <option value="HOTELS">hotels</option>
+                    <option value="CAFE_RESTAURANTS">cafe or restaurants</option>
+                    <option value="MONUMENTS_OBJECTS">monuments and objects</option>
+                    <option value="ENTERTAINMENT">entertainment</option>
+                    <option value="MUSEUMS">museums</option>
+                </select>
+            </div>
+        </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Show places"/>
+            </div>
+    </form>
 </div>
 
-<jsp:include page="include/footer.jsp" />
+<%--<div class="container text-centered">--%>
+<%--    <center><img src="/images/careerbuilder-original-3120.gif"></center>--%>
+<%--    <br>--%>
+<%--    <center><img src="/images/careerbuilder-original-3110.gif"></center>--%>
+<%--</div>--%>
+
+<jsp:include page="include/footer.jsp"/>
 
 </body>
 </html>

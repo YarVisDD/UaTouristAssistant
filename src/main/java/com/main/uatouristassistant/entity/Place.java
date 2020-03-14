@@ -1,6 +1,7 @@
 package com.main.uatouristassistant.entity;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idPlace;
     private String placeName;
+    @Column(length=1000)
     private String placeDescription;
     @Enumerated(EnumType.STRING)
     private PlaceType placeType;
