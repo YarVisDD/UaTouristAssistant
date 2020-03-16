@@ -17,9 +17,9 @@ public class AddressService<list> {
     @Autowired
     private CityRepository cityRepository;
 
-    public void saveAddress( String cityName,
-                               String streetName,
-                               String numberHouse) {
+    public void saveAddress(String cityName,
+                            String streetName,
+                            String numberHouse) {
 
         City city;
         if (cityRepository.findByCityName(cityName) == null) {
