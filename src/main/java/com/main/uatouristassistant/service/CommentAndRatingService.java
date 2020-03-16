@@ -1,11 +1,11 @@
 package com.main.uatouristassistant.service;
 
 import com.main.uatouristassistant.entity.CommentAndRating;
+import com.main.uatouristassistant.entity.RateType;
 import com.main.uatouristassistant.repository.CommentAndRatingRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -15,48 +15,48 @@ public class CommentAndRatingService {
     @Autowired
     private CommentAndRatingRepository commentAndRatingRepository;
 
-    public void saveCommentAndRate(Long userId, String comment, String rate) {
+    public void saveCommentAndRate(String userLogin, String comment, RateType rateType) {
         CommentAndRating commentAndRating = new CommentAndRating();
-        commentAndRating.setUserId(userId);
+        commentAndRating.setUserLogin(userLogin);
         commentAndRating.setComment(comment);
-        commentAndRating.setRate(rate);
+        commentAndRating.setRateType(rateType);
         commentAndRatingRepository.save(commentAndRating);
         log.info("INFO!!! Comment and rate has been added. Comment and rate {}", commentAndRating);
     }
 
-    public void getCommentAndRate(Long userId) {
-        commentAndRatingRepository.findCommentAndRateByUserId(userId);
+    public void getCommentAndRate(String userLogin) {
+        commentAndRatingRepository.findCommentAndRateByUserLogin(userLogin);
     }
 
     public List<CommentAndRating> getAllCommentsAndRate() {
         return commentAndRatingRepository.findAll();
     }
 
-    public String delCommentAndRate(Long commendId) {
+    public String delCommentAndRate(Long commentId) {
         try {
-            CommentAndRating commentAndRating = commentAndRatingRepository.findCommentAndRatingByCommentId(commendId);
+            CommentAndRating commentAndRating = commentAndRatingRepository.findCommentAndRatingByCommentId(commentId);
             commentAndRatingRepository.delete(commentAndRating);
 
-            log.info("INFO!!! Comment and rate has been deleted for commentId{}", commendId);
+            log.info("INFO!!! Comment and rate has been deleted for commentId{}", commentId);
 
-            return "The comment " + commendId + " has been deleted";
+            return "The comment " + commentId + " has been deleted";
         } catch (Exception ex) {
-            log.error("ERROR!!! Tried to delete comment and rate which does not exist: {}", commendId);
-            return "The comment " + commendId + " does not exist!";
+            log.error("ERROR!!! Tried to delete comment and rate which does not exist: {}", commentId);
+            return "The comment " + commentId + " does not exist!";
         }
     }
 
-    public String updCommentAndRatee(Long userId, String comment, String rate) {
+    public String updCommentAndRatee(String userLogin, String comment, RateType rateType) {
         try {
-            CommentAndRating commentAndRating = commentAndRatingRepository.findCommentAndRateByUserId(userId);
+            CommentAndRating commentAndRating = commentAndRatingRepository.findCommentAndRateByUserLogin(userLogin);
             commentAndRating.setComment(comment);
-            commentAndRating.setRate(rate);
+            commentAndRating.setRateType(rateType);
             commentAndRatingRepository.save(commentAndRating);
-            log.info("INFO!!! Comment and rate has been updated for userId{}", userId);
+            log.info("INFO!!! Comment and rate has been updated for userLogin {}", userLogin);
             return "Comment and rate updated";
         } catch (NullPointerException ex) {
-            log.error("ERROR!!! Update comment adn rate for incorrect User Id {}", userId);
-            return "The user with id " + userId + " does not exist!";
+            log.error("ERROR!!! Update comment adn rate for incorrect User Login {}", userLogin);
+            return "The user with login " + userLogin + " does not exist!";
         }
     }
 }

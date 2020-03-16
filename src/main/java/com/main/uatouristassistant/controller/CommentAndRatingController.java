@@ -1,28 +1,39 @@
 package com.main.uatouristassistant.controller;
 
 import com.main.uatouristassistant.entity.CommentAndRating;
+import com.main.uatouristassistant.entity.RateType;
 import com.main.uatouristassistant.service.CommentAndRatingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+
 @Slf4j
 @Controller
 @RequestMapping(path = "/comment")
 
-public class CommentAndRatingController {
+public class CommentAndRatingController extends HttpServlet {
+
     @Autowired
     private CommentAndRatingService commentAndRatingService;
 
-    @PostMapping(path = "/addCommentAndRate")
-    @ResponseBody
-    public String addCommentAndRate(@RequestParam Long userId,
-                                    @RequestParam String comment,
-                                    @RequestParam String rate) {
-        commentAndRatingService.saveCommentAndRate(userId, comment, rate);
+    @PostMapping(path = "/save-comment")
 
-        return "/place/show-places";
+    public String addCommentAndRate(@RequestParam String userLogin,
+                                    @RequestParam String comment,
+                                    @RequestParam RateType rateType) {
+        commentAndRatingService.saveCommentAndRate(userLogin, comment, rateType);
+
+
+        return "redirect:/place/show-places";
+    }
+
+    @RequestMapping("/add-comment")
+    public String addCommentPage(HttpServletRequest request) {
+        return "/comment/add-comment";
     }
 
     @GetMapping(path = "/list")
@@ -33,24 +44,24 @@ public class CommentAndRatingController {
 
     @GetMapping(path = "/listCommentsAndRate")
     @ResponseBody
-    public String getCommentAndRate(@RequestParam Long userId) {
-        commentAndRatingService.getCommentAndRate(userId);
+    public String getCommentAndRate(@RequestParam String userLogin) {
+        commentAndRatingService.getCommentAndRate(userLogin);
         return "/place/show-places";
     }
 
     @PostMapping(path = "/updateCommentAndRate")
     public @ResponseBody
-    String updateCommentAndRate(@RequestParam Long userId,
+    String updateCommentAndRate(@RequestParam String userLogin,
                                 @RequestParam String comment,
-                                @RequestParam String rate) {
-        commentAndRatingService.updCommentAndRatee(userId, comment, rate);
+                                @RequestParam RateType rateType) {
+        commentAndRatingService.updCommentAndRatee(userLogin, comment, rateType);
         return "redirect:/place/show-places";
     }
 
     @DeleteMapping(path = "/delCommentAndRate")
     public @ResponseBody
-    String deleteCommentAndRate(@RequestParam Long commendId) {
-        commentAndRatingService.delCommentAndRate(commendId);
+    String deleteCommentAndRate(@RequestParam Long commentId) {
+        commentAndRatingService.delCommentAndRate(commentId);
         return "redirect:/place/show-places";
     }
 
