@@ -9,14 +9,10 @@ import com.main.uatouristassistant.repository.CityRepository;
 import com.main.uatouristassistant.repository.PlaceRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -34,15 +30,13 @@ public class PlaceService {
     @Autowired
     private UserService userService;
 
-    @Value("${upload.path}")
-    private String imagePath;
-
-    String projectDir = new File("").getAbsolutePath();
+    @Autowired
+    private PlaceImagesService imagesService;
 
     public void savePlace(String placeName,
                           String placeDescription,
                           PlaceType placeType,
-                          MultipartFile image,
+                          MultipartFile[] images,
                           String login,
                           String cityName,
                           String streetName,
@@ -76,28 +70,11 @@ public class PlaceService {
         place.setPlaceDescription(placeDescription);
         place.setPlaceType(placeType);
 
-        if (image != null && !image.getOriginalFilename().isEmpty()) {
-            File uploadDir = new File(projectDir + imagePath);
-
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-            }
-
-            String uuidImage = UUID.randomUUID().toString();
-            String resultImageName = uuidImage + "." + image.getOriginalFilename();
-
-            try {
-                image.transferTo(new File(projectDir + imagePath + "/" + resultImageName));
-            } catch (IOException e) {
-                log.error(e.getMessage());
-            }
-
-            place.setImagePath(resultImageName);
-        }
-
         place.setUser(userService.getUser(login));
         place.setAddress(address);
         placeRepository.save(place);
+
+        imagesService.saveImage(place, images);
     }
 
     public List<Place> findAll() {
@@ -111,12 +88,6 @@ public class PlaceService {
     public void deletePlace(Long idPlace) {
         try {
             Place place = placeRepository.findPlaceByIdPlace(idPlace);
-            File file = new File(projectDir + imagePath + "/" + place.getImagePath());
-            if (file.delete()) {
-                log.info("INFO!!! File {} deleted successfully", file);
-            } else {
-                log.error("ERROR!!! File not found!");
-            }
             placeRepository.delete(place);
             log.info("INFO!!! Place has ben delete: {}", place);
         } catch (Exception ex) {

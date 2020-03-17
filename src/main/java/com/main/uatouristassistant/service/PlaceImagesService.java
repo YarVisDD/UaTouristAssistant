@@ -1,10 +1,10 @@
 package com.main.uatouristassistant.service;
 
+import com.main.uatouristassistant.entity.Place;
 import com.main.uatouristassistant.entity.PlaceImage;
 import com.main.uatouristassistant.repository.PlaceImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -17,18 +17,19 @@ public class PlaceImagesService {
     @Autowired
     private PlaceImageRepository placeImageRepository;
 
-    public void saveImage(MultipartFile file) {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    public void saveImage(Place place, MultipartFile[] files) {
 
-        if (file != null && !file.getOriginalFilename().isEmpty()) {
-            try {
-                PlaceImage img = new PlaceImage();
-                img.setFileName(fileName);
-                img.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+        for (MultipartFile file : files) {
 
-                placeImageRepository.save(img);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (file != null && !file.getOriginalFilename().isEmpty()) {
+                try {
+                    PlaceImage img = new PlaceImage();
+                    img.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+                    img.setPlace(place);
+                    placeImageRepository.save(img);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

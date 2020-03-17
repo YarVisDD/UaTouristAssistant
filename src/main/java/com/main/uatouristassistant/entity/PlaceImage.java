@@ -2,10 +2,7 @@ package com.main.uatouristassistant.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -15,7 +12,9 @@ public class PlaceImage {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idImage;
 
-    private String fileName;
-
     private String image;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "place_id")
+    private Place place;
 }

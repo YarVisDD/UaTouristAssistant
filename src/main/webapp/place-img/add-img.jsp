@@ -26,7 +26,7 @@
         <div class="form-group">
             <label class="control-label col-md-3">Choose image</label>
             <div class="col-md-7">
-                <input class="form-control" type="file" name="image" value="${img.image}"/>
+                <input class="form-control" type="file" name="image" value="${img.image}" multiple/>
             </div>
         </div>
         <div class="form-group ">
