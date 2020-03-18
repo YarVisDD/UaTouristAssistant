@@ -30,7 +30,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Type</th>
-                <th>Image</th>
+                <%--                <th>Image</th>--%>
                 <th>City</th>
                 <th>Street</th>
                 <th>House</th>
@@ -42,7 +42,11 @@
                     <td>${place.placeName}</td>
                     <td>${place.placeDescription}</td>
                     <td>${place.placeType}</td>
-                    <td id="placeListTg"><img src="../images/place_img/${place.imagePath}" id="placeListImg" class="img-fluid" alt="img"/></td>
+                    <c:forEach var="image" items="${images}">
+                        <c:if test="${image.idImage} == ${place.idPlace}">
+                            <td id="placeListTg"><img src="../images/place_img/${place.imagePath}" id="placeListImg" class="img-fluid" alt="img"/></td>
+                        </c:if>
+                    </c:forEach>
                     <td>${place.address.city.cityName}</td>
                     <td>${place.address.street}</td>
                     <td>${place.address.numberHouse}</td>

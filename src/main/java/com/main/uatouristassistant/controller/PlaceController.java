@@ -2,7 +2,7 @@ package com.main.uatouristassistant.controller;
 
 import com.main.uatouristassistant.entity.Place;
 import com.main.uatouristassistant.entity.PlaceType;
-import com.main.uatouristassistant.repository.PlaceRepository;
+import com.main.uatouristassistant.service.PlaceImagesService;
 import com.main.uatouristassistant.service.PlaceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -21,6 +20,9 @@ public class PlaceController extends HttpServlet {
 
     @Autowired
     private PlaceService placeService;
+
+    @Autowired
+    PlaceImagesService imagesService;
 
     @PostMapping("/save-place")
     public String addPlace(@RequestParam String placeName,
@@ -49,6 +51,9 @@ public class PlaceController extends HttpServlet {
         } else {
             request.setAttribute("places", placeService.findByPlaceTypeAndAddress_City_CityName(placeType, city));
         }
+
+        request.setAttribute("images", imagesService.getAllImage());
+
         return "/place/show-places-by-type";
     }
 
