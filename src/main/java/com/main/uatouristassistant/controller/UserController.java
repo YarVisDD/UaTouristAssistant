@@ -1,6 +1,7 @@
 package com.main.uatouristassistant.controller;
 
 import com.main.uatouristassistant.entity.User;
+import com.main.uatouristassistant.entity.UserRoles;
 import com.main.uatouristassistant.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -66,7 +67,7 @@ public class UserController {
     @GetMapping("/delete-user/{login}")
     public String deleteUser(@PathVariable String login) {
         if (userService.deleteUser(login)) return "redirect:/user/show-users";
-        else return "redirect:/error";
+        else return "/error";
     }
 
     @PostMapping("/save-user")
@@ -78,6 +79,13 @@ public class UserController {
 
     @RequestMapping("/update-user/{login}")
     public String updateUser(@PathVariable String login, HttpServletRequest request) {
+        String sessionLogin = String.valueOf(request.getSession().getAttribute("userLogin"));
+        if (!userService.existsByLogin(login) || !userService.existsByLogin(sessionLogin)) return "protected";
+        UserRoles sessionUserRole = userService.findUserByLogin(sessionLogin).getUserRole();
+        UserRoles userRole = userService.findUserByLogin(login).getUserRole();
+        if (!login.equals(sessionLogin) || !userRole.equals(sessionUserRole)) {
+            if (!sessionUserRole.equals(UserRoles.ADMIN)) return "protected";
+        }
         request.setAttribute("user", userService.findUserByLogin(login));
         return "/update-user";
     }

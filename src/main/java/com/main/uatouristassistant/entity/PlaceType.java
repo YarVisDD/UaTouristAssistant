@@ -5,5 +5,6 @@ public enum PlaceType {
     CAFE_RESTAURANTS,
     MONUMENTS_OBJECTS,
     ENTERTAINMENT,
-    MUSEUMS
+    MUSEUMS,
+    ALL
 }

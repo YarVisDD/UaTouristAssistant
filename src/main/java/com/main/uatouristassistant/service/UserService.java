@@ -91,4 +91,8 @@ public class UserService {
     public User findUserByLogin(@RequestParam String login) {
         return userRepository.findByLogin(login);
     }
+
+    public boolean existsByLogin (String login) {
+        return userRepository.existsByLogin(login);
+    }
 }

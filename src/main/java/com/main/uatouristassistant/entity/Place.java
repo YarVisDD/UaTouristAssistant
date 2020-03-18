@@ -11,21 +11,16 @@ public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idPlace;
-
     private String placeName;
-
+    @Column(length=1000)
     private String placeDescription;
-
     @Enumerated(EnumType.STRING)
     private PlaceType placeType;
-
 //    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<PlaceImage> imagesPath;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
-
+//    private List<Images> imagesPath;
+    private String imagePath;
+    //TODO поміняти на юзера
+    private String userName;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;

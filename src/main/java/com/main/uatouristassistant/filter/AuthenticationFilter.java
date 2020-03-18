@@ -10,7 +10,8 @@ import java.io.IOException;
 @WebFilter(urlPatterns = {
         "/homepage", "/homepage.jsp",
         "/user/show-users", "/show-users.jsp",
-        "/place/add-place", "/place/add-place.jsp"
+        "/place/show-places-by-type", "/place/show-places-by-type.jsp",
+        "/user/update-user/*"
 })
 public class AuthenticationFilter implements Filter {
     private ServletContext context;
