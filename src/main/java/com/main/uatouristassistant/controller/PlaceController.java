@@ -24,13 +24,13 @@ public class PlaceController extends HttpServlet {
     public String addPlace(@RequestParam String placeName,
                            @RequestParam String placeDescription,
                            @RequestParam PlaceType placeType,
-                           @RequestParam("image") MultipartFile image,
+                           @RequestParam("image") MultipartFile[] images,
                            String login,
                            @RequestParam String cityName,
                            @RequestParam String streetName,
                            @RequestParam String numberHouse) {
 
-        placeService.savePlace(placeName, placeDescription, placeType, image, login, cityName, streetName, numberHouse);
+        placeService.savePlace(placeName, placeDescription, placeType, images, login, cityName, streetName, numberHouse);
 
         return "redirect:/place/show-places";
     }

@@ -50,7 +50,7 @@
         <div class="form-group">
             <label class="control-label col-md-3">Choose image</label>
             <div class="col-md-7">
-                <input class="form-control" type="file" name="image" value="${place.image}"/>
+                <input class="form-control" type="file" name="image" value="${place.image}" multiple/>
             </div>
         </div>
         <div class="form-group">
@@ -58,12 +58,7 @@
             <div class="col-md-7">
                 <%
                     Object userLogin = session.getAttribute("userLogin");
-                    if (userLogin != null) {
-                        out.print("<input class=\"form-control\" type=\"text\" name=\"login\" placeholder=\"Enter username\" value=" + userLogin + " readonly/>");
-                    } else {
-                        out.print("<li><a href=\"/user/update-user/" + userLogin + "\">Profile</a></li>");
-                        out.print("<li><a href=\"/logout\">Log Out</a></li>");
-                    }
+                    out.print("<input class=\"form-control\" type=\"text\" name=\"login\" placeholder=\"Enter username\" value=" + userLogin + " readonly/>");
                 %>
 <%--                <input class="form-control" type="text" name="login" placeholder="Enter username" value="<% session.getAttribute("userLogin"); %>" readonly/>--%>
             </div>
