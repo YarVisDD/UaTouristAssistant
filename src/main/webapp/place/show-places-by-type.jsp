@@ -1,5 +1,6 @@
 <!DOCTYPE html >
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -30,7 +31,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Type</th>
-                <%--                <th>Image</th>--%>
+                <th>Image</th>
                 <th>City</th>
                 <th>Street</th>
                 <th>House</th>
@@ -40,13 +41,16 @@
             <c:forEach var="place" items="${places}">
                 <tr>
                     <td>${place.placeName}</td>
-                    <td>${place.placeDescription}</td>
+                    <c:set var="shortDesc" value="${fn:substring(place.placeDescription, 0, 200)}" />
+                    <td>${shortDesc}...</td>
                     <td>${place.placeType}</td>
-                    <c:forEach var="image" items="${images}">
-                        <c:if test="${image.idImage} == ${place.idPlace}">
-                            <td id="placeListTg"><img src="../images/place_img/${place.imagePath}" id="placeListImg" class="img-fluid" alt="img"/></td>
-                        </c:if>
-                    </c:forEach>
+                    <td>
+                        <c:forEach var="image" items="${images}">
+                            <c:if test="${image.place.idPlace == place.idPlace}">
+                                <img src="data:image/jpg;base64,${image.image}" width="25%"/>
+                            </c:if>
+                        </c:forEach>
+                    </td>
                     <td>${place.address.city.cityName}</td>
                     <td>${place.address.street}</td>
                     <td>${place.address.numberHouse}</td>
