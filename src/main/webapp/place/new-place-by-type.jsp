@@ -25,15 +25,17 @@
     <h3><%= request.getParameter("city") %> places</h3>
     <c:forEach var="place" items="${places}">
         <hr>
-        <div class="media">
-            <c:forEach var="image" items="${images}">
-                <c:if test="${image.place.idPlace == place.idPlace}">
-                    <img class="align-self-center mr-3" src="data:image/jpg;base64,${image.image}" width="10%">
-                </c:if>
-            </c:forEach>
+        <div class="media" style="display: flex">
+            <div class="placeImage">
+                <c:forEach var="image" items="${images}" varStatus="i">
+                    <c:if test="${image.place.idPlace == place.idPlace}">
+                        <img class="align-self-center mr-3" src="data:image/jpg;base64,${image.image}" width="10%">
+                    </c:if>
+                </c:forEach>
+            </div>
             <div class="media-body">
-                <h5 class="mt-0"><a href="#">${place.placeName}</a></h5>
-                <c:set var="shortDesc" value="${fn:substring(place.placeDescription, 0, 200)}" />
+                <a href="#"><h5 class="mt-0">${place.placeName}</h5></a>
+                <c:set var="shortDesc" value="${fn:substring(place.placeDescription, 0, 500)}" />
                 <p>${shortDesc}...</p>
             </div>
         </div>
