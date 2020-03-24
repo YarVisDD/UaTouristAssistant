@@ -21,7 +21,10 @@
 <jsp:include page="../include/navbar.jsp" />
 
 <div class="container text-center" id="tasksDiv">
-    <h3><%= request.getParameter("city") %> places</h3>
+    <h3>
+        <a onclick="history.go(-1)" class="btn btn-default" role="button" style="float: left">Back</a>
+        <%= request.getParameter("city") %> places
+    </h3>
     <hr>
     <div class="table-responsive">
         <table class="table table-striped table-bordered">
@@ -39,7 +42,7 @@
             <tbody>
             <c:forEach var="place" items="${places}">
                 <tr>
-                    <td>${place.placeName}</td>
+                    <td><a href="/place/show-place/${place.idPlace}">${place.placeName}</a></td>
                     <td>${place.placeDescription}</td>
                     <td>${place.placeType}</td>
                     <td id="placeListTg"><img src="../images/place_img/${place.imagePath}" id="placeListImg" class="img-fluid" alt="img"/></td>
