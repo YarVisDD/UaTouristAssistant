@@ -63,15 +63,12 @@ public class PlaceController extends HttpServlet {
         return "/place/show-places";
     }
 
-    @GetMapping("/one-place")
-    @ResponseBody
-    public Place getPlace(@RequestParam Long idPlace) {
-        return placeService.getPlaceById(idPlace);
+    @GetMapping("/show-place/{idPlace}")
+    public String getPlace(@PathVariable Long idPlace, HttpServletRequest request) {
+        Place place = placeService.getPlaceById(idPlace);
+        request.setAttribute("place", place);
+        return "/place/show-place";
     }
-
-//    @PostMapping("/update-place")
-//    @ResponseBody
-//    public String
 
     @RequestMapping("/delete-place")
     public String deletePlace(@RequestParam Long idPlace, HttpServletRequest request) {

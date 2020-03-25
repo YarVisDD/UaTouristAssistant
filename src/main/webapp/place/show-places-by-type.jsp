@@ -1,6 +1,5 @@
 <!DOCTYPE html >
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -22,7 +21,10 @@
 <jsp:include page="../include/navbar.jsp" />
 
 <div class="container text-center" id="tasksDiv">
-    <h3><%= request.getParameter("city") %> places</h3>
+    <h3>
+        <a onclick="history.go(-1)" class="btn btn-default" role="button" style="float: left">Back</a>
+        <%= request.getParameter("city") %> places
+    </h3>
     <hr>
     <div class="table-responsive">
         <table class="table table-striped table-bordered">
@@ -40,17 +42,10 @@
             <tbody>
             <c:forEach var="place" items="${places}">
                 <tr>
-                    <td>${place.placeName}</td>
-                    <c:set var="shortDesc" value="${fn:substring(place.placeDescription, 0, 200)}" />
-                    <td>${shortDesc}...</td>
+                    <td><a href="/place/show-place/${place.idPlace}">${place.placeName}</a></td>
+                    <td>${place.placeDescription}</td>
                     <td>${place.placeType}</td>
-                    <td>
-                        <c:forEach var="image" items="${images}">
-                            <c:if test="${image.place.idPlace == place.idPlace}">
-                                <img src="data:image/jpg;base64,${image.image}" width="25%"/>
-                            </c:if>
-                        </c:forEach>
-                    </td>
+                    <td id="placeListTg"><img src="../images/place_img/${place.imagePath}" id="placeListImg" class="img-fluid" alt="img"/></td>
                     <td>${place.address.city.cityName}</td>
                     <td>${place.address.street}</td>
                     <td>${place.address.numberHouse}</td>
