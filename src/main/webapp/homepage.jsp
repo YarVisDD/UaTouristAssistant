@@ -32,7 +32,7 @@
 <div class="container text-center">
     <h3>Please choose where you want to spend your time</h3>
     <hr>
-    <form class="form-horizontal" method="post" action="/place/new-place-by-type">
+    <form class="form-horizontal" method="post" action="/place/show-places-by-type">
         <div class="form-group">
             <label class="control-label col-md-3">City</label>
             <div class="col-md-7">

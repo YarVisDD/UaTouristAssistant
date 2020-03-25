@@ -37,4 +37,8 @@ public class PlaceImagesService {
     public List<PlaceImage> getAllImage() {
         return placeImageRepository.findAll();
     }
+
+    public List<PlaceImage> getImageByPlace(Place place) {
+        return placeImageRepository.findByPlace(place);
+    }
 }

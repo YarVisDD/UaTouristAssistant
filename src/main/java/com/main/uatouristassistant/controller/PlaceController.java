@@ -44,7 +44,7 @@ public class PlaceController extends HttpServlet {
         return "/place/add-place";
     }
 
-    @PostMapping("/new-place-by-type")
+    @PostMapping("/show-places-by-type")
     public String showPlaceByType(PlaceType placeType, String city, HttpServletRequest request) {
         if (placeType.equals(PlaceType.ALL)) {
             request.setAttribute("places", placeService.findByAddress_City_CityName(city));
@@ -54,7 +54,7 @@ public class PlaceController extends HttpServlet {
 
         request.setAttribute("images", imagesService.getAllImage());
 
-        return "/place/new-place-by-type";
+        return "/place/show-places-by-type";
     }
 
     @GetMapping("/show-places")

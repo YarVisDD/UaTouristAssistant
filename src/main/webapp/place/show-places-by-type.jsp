@@ -45,7 +45,14 @@
                     <td><a href="/place/show-place/${place.idPlace}">${place.placeName}</a></td>
                     <td>${place.placeDescription}</td>
                     <td>${place.placeType}</td>
-                    <td id="placeListTg"><img src="../images/place_img/${place.imagePath}" id="placeListImg" class="img-fluid" alt="img"/></td>
+                    <td id="placeListTg">
+                    <c:forEach var="image" items="${images}" varStatus="i">
+                        <c:if test="${image.place.idPlace == place.idPlace}">
+                            <img class="align-self-center mr-3" src="data:image/jpg;base64,${image.image}" width="10%">
+                        </c:if>
+                    </c:forEach>
+                    </td>
+                        <%--                     id="placeListTg"><img src="../images/place_img/${place.imagePath}" id="placeListImg" class="img-fluid" alt="img"/>--%>
                     <td>${place.address.city.cityName}</td>
                     <td>${place.address.street}</td>
                     <td>${place.address.numberHouse}</td>
