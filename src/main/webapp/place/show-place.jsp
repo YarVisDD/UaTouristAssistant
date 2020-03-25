@@ -29,10 +29,15 @@
     <b>Address:</b> ${place.address.city.cityName}, ${place.address.street}, ${place.address.numberHouse}
     <hr>
 </div>
+<div class="container text-center" id="tasksDiv">
+    <c:forEach var="image" items="${images}">
+<%--        <c:if test="${image.place.idPlace == place.idPlace}">--%>
+            <img class="align-self-center mr-3" src="data:image/jpg;base64,${image.image}" height="150px" style="padding-bottom: 10px">
+<%--        </c:if>--%>
+    </c:forEach>
+</div>
 <div class="container text-left" id="tasksDiv">
     <p>
-        <img src="/images/place_img/${place.imagePath}" alt="img"
-             style="float: left; height: 200px; padding-right: 10px; padding-bottom: 10px">
         ${place.placeDescription}
     </p>
 </div>
