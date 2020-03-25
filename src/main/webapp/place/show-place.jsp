@@ -31,9 +31,7 @@
 </div>
 <div class="container text-center" id="tasksDiv">
     <c:forEach var="image" items="${images}">
-<%--        <c:if test="${image.place.idPlace == place.idPlace}">--%>
             <img class="align-self-center mr-3" src="data:image/jpg;base64,${image.image}" height="150px" style="padding-bottom: 10px">
-<%--        </c:if>--%>
     </c:forEach>
 </div>
 <div class="container text-left" id="tasksDiv">
