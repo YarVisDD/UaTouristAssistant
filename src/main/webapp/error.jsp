@@ -23,7 +23,7 @@
 </head>
 <body>
 
-<jsp:include page="include/navbar.jsp" />
+<jsp:include page="/include/navbar.jsp" />
 
 <div class="container">
     <h1><a href="/">Home</a> | Error Page</h1>
@@ -57,7 +57,7 @@
     </table>
 </div>
 
-<jsp:include page="include/footer.jsp" />
+<jsp:include page="/include/footer.jsp" />
 
 </body>
 </html>

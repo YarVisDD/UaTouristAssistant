@@ -17,7 +17,7 @@
 </head>
 <body>
 
-<jsp:include page="../include/navbar.jsp" />
+<jsp:include page="/include/navbar.jsp" />
 
 <div class="container text-center">
     <h3>Add Comment</h3>
@@ -63,7 +63,7 @@
 </div>
 
 
-<jsp:include page="../include/footer.jsp" />
+<jsp:include page="/include/footer.jsp" />
 
 </body>
 </html>
