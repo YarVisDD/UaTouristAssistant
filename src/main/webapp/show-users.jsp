@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<jsp:include page="include/navbar.jsp" />
+<jsp:include page="/include/navbar.jsp" />
 
 <div class="container text-center" id="tasksDiv">
     <h3>All Users</h3>
@@ -59,7 +59,7 @@
     </div>
 </div>
 
-<jsp:include page="include/footer.jsp" />
+<jsp:include page="/include/footer.jsp" />
 
 </body>
 </html>

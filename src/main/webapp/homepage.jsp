@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<jsp:include page="include/navbar.jsp"/>
+<jsp:include page="/include/navbar.jsp"/>
 
 <div class="container" id="homediv">
     <div class="jumbotron text-center">
@@ -62,13 +62,7 @@
     </form>
 </div>
 
-<%--<div class="container text-centered">--%>
-<%--    <center><img src="/images/careerbuilder-original-3120.gif"></center>--%>
-<%--    <br>--%>
-<%--    <center><img src="/images/careerbuilder-original-3110.gif"></center>--%>
-<%--</div>--%>
-
-<jsp:include page="include/footer.jsp"/>
+<jsp:include page="/include/footer.jsp"/>
 
 </body>
 </html>

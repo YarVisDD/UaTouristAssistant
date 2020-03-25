@@ -1,6 +1,7 @@
 package com.main.uatouristassistant.controller;
 
 import com.main.uatouristassistant.entity.Place;
+import com.main.uatouristassistant.entity.PlaceImage;
 import com.main.uatouristassistant.entity.PlaceType;
 import com.main.uatouristassistant.service.PlaceImagesService;
 import com.main.uatouristassistant.service.PlaceService;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -66,6 +68,8 @@ public class PlaceController extends HttpServlet {
     @GetMapping("/show-place/{idPlace}")
     public String getPlace(@PathVariable Long idPlace, HttpServletRequest request) {
         Place place = placeService.getPlaceById(idPlace);
+        List<PlaceImage> images = imagesService.gteImageByIdPlace(idPlace);
+        request.setAttribute("images", images);
         request.setAttribute("place", place);
         return "/place/show-place";
     }
