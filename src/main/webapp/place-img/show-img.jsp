@@ -21,41 +21,23 @@
 <jsp:include page="../include/navbar.jsp" />
 
 <div class="container text-center" id="tasksDiv">
-    <h3>
-        <a onclick="history.go(-1)" class="btn btn-default" role="button" style="float: left">Back</a>
-        <%= request.getParameter("city") %> places
-    </h3>
+    <h3>All Places</h3>
     <hr>
     <div class="table-responsive">
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Type</th>
+                <th>Id</th>
+                <th>File Name</th>
                 <th>Image</th>
-                <th>City</th>
-                <th>Street</th>
-                <th>House</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="place" items="${places}">
+            <c:forEach var="img" items="${images}">
                 <tr>
-                    <td><a href="/place/show-place/${place.idPlace}">${place.placeName}</a></td>
-                    <td>${place.placeDescription}</td>
-                    <td>${place.placeType}</td>
-                    <td id="placeListTg">
-                    <c:forEach var="image" items="${images}" varStatus="i">
-                        <c:if test="${image.place.idPlace == place.idPlace}">
-                            <img class="align-self-center mr-3" src="data:image/jpg;base64,${image.image}" width="10%">
-                        </c:if>
-                    </c:forEach>
-                    </td>
-                        <%--                     id="placeListTg"><img src="../images/place_img/${place.imagePath}" id="placeListImg" class="img-fluid" alt="img"/>--%>
-                    <td>${place.address.city.cityName}</td>
-                    <td>${place.address.street}</td>
-                    <td>${place.address.numberHouse}</td>
+                    <td>${img.idImage}</td>
+                    <td>${img.fileName}</td>
+                    <td><img src="data:image/jpg;base64,${img.image}"/></td>
                 </tr>
             </c:forEach>
             </tbody>

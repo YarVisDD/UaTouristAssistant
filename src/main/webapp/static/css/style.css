@@ -14,3 +14,8 @@
 #placeListTg {
     width: 25%;
 }
+
+.placeImage {
+    width: 150px;
+    height: 130px;
+}

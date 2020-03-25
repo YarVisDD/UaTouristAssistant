@@ -31,7 +31,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Type</th>
-                <th>Image</th>
+<%--                <th>Image</th>--%>
                 <th>User</th>
                 <th>City</th>
                 <th>Street</th>
@@ -47,8 +47,8 @@
                     <td>${place.placeName}</td>
                     <td>${place.placeDescription}</td>
                     <td>${place.placeType}</td>
-                    <td id="placeListTg"><img src="../images/place_img/${place.imagePath}" id="placeListImg" class="img-fluid" alt="img"/></td>
-                    <td>${place.userName}</td>
+<%--                    <td id="placeListTg"><img src="../images/place_img/${place.imagePath}" id="placeListImg" class="img-fluid" alt="img"/></td>--%>
+                    <td>${place.user.login}</td>
                     <td>${place.address.city.cityName}</td>
                     <td>${place.address.street}</td>
                     <td>${place.address.numberHouse}</td>

@@ -3,6 +3,7 @@ package com.main.uatouristassistant.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,6 +19,8 @@ public class User {
     private String dateOfBirth;
     @Enumerated(EnumType.STRING)
     private UserRoles userRole;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Place> places;
 
     public User() {
     }
