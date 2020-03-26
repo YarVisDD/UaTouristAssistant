@@ -17,24 +17,24 @@ public class AddressService<list> {
     @Autowired
     private CityRepository cityRepository;
 
-    public void saveAddress(String cityName,
-                            String streetName,
-                            String numberHouse) {
+    public boolean saveAddress(String cityName,
+                               String streetName,
+                               String numberHouse) {
 
-        City city;
-        if (cityRepository.findByCityName(cityName) == null) {
-            city = new City();
+        if (cityRepository.existsByCityName(cityName)) {
+            City city = new City();
             city.setCityName(cityName);
             cityRepository.save(city);
-        } else {
-            city = cityRepository.findByCityName(cityName);
-        }
 
-        Address address = new Address();
-        address.setCity(city);
-        address.setStreet(streetName);
-        address.setNumberHouse(numberHouse);
-        addressRepository.save(address);
+            Address address = new Address();
+            address.setCity(city);
+            address.setStreet(streetName);
+            address.setNumberHouse(numberHouse);
+            addressRepository.save(address);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public List<Address> getAllAddresses() {
