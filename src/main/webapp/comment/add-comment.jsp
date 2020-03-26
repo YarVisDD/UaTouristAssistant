@@ -31,6 +31,13 @@
                        value="<% out.print(session.getAttribute("userLogin")); %>" />
             </div>
         </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">PlaceId</label>
+            <div class="col-md-7">
+                <input type="text" class="form-control" name="id"
+                       value="${comment.place}"/>
+            </div>
+        </div>
         <input type="hidden" name="commentId" value="${comment.commentId}"/>
         <div class="form-group">
             <label class="control-label col-md-3">Add Comment</label>

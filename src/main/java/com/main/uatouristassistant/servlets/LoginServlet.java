@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 
         if (userService.userLogin(login, password)) {
             HttpSession session = req.getSession();
-            session.setMaxInactiveInterval(10*60);
+            session.setMaxInactiveInterval(10*60*1000);
             session.setAttribute("userLogin", login);
             req.getServletContext().getRequestDispatcher("/homepage").forward(req, resp);
         } else {
