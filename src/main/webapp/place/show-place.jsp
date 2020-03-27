@@ -40,13 +40,13 @@
         ${place.placeDescription}
     </p>
 </div>
-<div class="container" id="tasksDiv">
+<div class="container text-center" id="tasksDiv">
     <hr>
     <h3>Comments</h3>
     <hr>
 
     <c:forEach var="comment" items="${comments}">
-        <div class="panel panel-default" style="width: 50%">
+        <div class="panel panel-default text-left" style="width: 50%">
             <table class="table">
                 <thead>
                 <tr class="active">
