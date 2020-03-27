@@ -26,11 +26,10 @@ public class CommentAndRatingController extends HttpServlet {
     public String addCommentAndRate(@RequestParam String userLogin,
                                     @RequestParam String comment,
                                     @RequestParam RateType rateType,
-                                    @RequestParam Long id) {
-        commentAndRatingService.saveCommentAndRate(userLogin, comment, rateType,id);
+                                    @RequestParam Long idPlace) {
+        commentAndRatingService.saveCommentAndRate(userLogin, comment, rateType, idPlace);
 
-
-        return "redirect:/place/show-places";
+        return "redirect:/place/show-place/" + idPlace;
     }
 
     @RequestMapping("/add-comment")
@@ -57,7 +56,7 @@ public class CommentAndRatingController extends HttpServlet {
                                 @RequestParam String comment,
                                 @RequestParam RateType rateType,
                                 @RequestParam Long id) {
-        commentAndRatingService.updCommentAndRatee(userLogin, comment, rateType,id);
+        commentAndRatingService.updCommentAndRatee(userLogin, comment, rateType, id);
         return "redirect:/place/show-places";
     }
 
