@@ -37,7 +37,7 @@ public class UserController {
                 user.getDateOfBirth());
         if (registration) return "redirect:/login";
         else {
-            request.setAttribute("error", "Username or Email already registered");
+            request.setAttribute("error", "Username or Email already registered or does not exits");
             return "registration";
         }
     }
