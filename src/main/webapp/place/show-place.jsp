@@ -31,10 +31,8 @@
 </div>
 <div class="container text-center" id="tasksDiv">
     <c:forEach var="image" items="${images}">
-        <%--        <c:if test="${image.place.idPlace == place.idPlace}">--%>
         <img class="align-self-center mr-3" src="data:image/jpg;base64,${image.image}" height="150px"
              style="padding-bottom: 10px">
-        <%--        </c:if>--%>
     </c:forEach>
 </div>
 <div class="container text-left" id="tasksDiv">
@@ -46,30 +44,23 @@
     <hr>
     <h3>Comments</h3>
     <hr>
-    <table class="table">
-        <thead>
 
-        <tr>
-            <th>UserLogin</th>
-            <th>Comment</th>
-            <th>Rate</th>
+    <c:forEach var="comment" items="${comments}">
+        <div class="panel panel-default text-left" style="width: 50%">
+            <table class="table">
+                <thead>
+                <tr class="active">
+                    <td>Login: <b>${comment.userLogin}</b><br></td>
+                    <td class="text-right">${comment.rateType}</td>
+                </tr>
+                </thead>
+                <tr class="text-left">
+                    <td colspan="2">${comment.comment}</td>
+                </tr>
+            </table>
+        </div>
+    </c:forEach>
 
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="comment" items="${comments}">
-
-
-            <tr>
-                <td>${comment.userLogin}</td>
-                <td>${comment.comment}</td>
-                <td>${comment.rateType}</td>
-            </tr>
-
-        </c:forEach>
-
-        </tbody>
-    </table>
     <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/comment/save-comment">
         <h3>Add Comment</h3>
         <div class="form-group">
@@ -80,17 +71,13 @@
             </div>
         </div>
 
-
-        <input type="hidden" class="form-control" name="id"
-               value="${place.idPlace}"/>
-
+        <input type="hidden" class="form-control" name="idPlace" value="${place.idPlace}"/>
         <input type="hidden" name="commentId" value="${comment.commentId}"/>
         <div class="form-group">
             <label class="control-label col-md-3">Comment</label>
             <div class="col-md-7">
                 <textarea class="form-control" name="comment" rows="3" placeholder="Enter your comment"
                           value="${comment.comment}"></textarea>
-
             </div>
         </div>
 
@@ -98,10 +85,10 @@
             <label class="control-label col-md-3">Rate </label>
             <div class="col-md-7">
                 <select id="RateType" class="form-control" name="rateType" value="${comment.rateType}">
-                    <option value="VERY_UNSATISFACTORY">VERY_UNSATISFACTORY</option>
+                    <option value="VERY_UNSATISFACTORY">VERY UNSATISFACTORY</option>
                     <option value="BAD">BAD</option>
                     <option value="GOOD">GOOD</option>
-                    <option value="VERY_GOOD">VERY_GOOD</option>
+                    <option value="VERY_GOOD">VERY GOOD</option>
                     <option value="EXCELLENT">EXCELLENT</option>
                 </select>
             </div>
@@ -114,9 +101,7 @@
     </form>
 </div>
 
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <jsp:include page="/include/footer.jsp"/>
+
 </body>
 </html>

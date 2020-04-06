@@ -73,10 +73,10 @@ public class PlaceController extends HttpServlet {
     public String getPlace(@PathVariable Long idPlace, HttpServletRequest request) {
         Place place = placeService.getPlaceById(idPlace);
         List<PlaceImage> images = imagesService.gteImageByIdPlace(idPlace);
-        List<CommentAndRating> comments=commentAndRatingService.getCommentByPlace(idPlace);
+        List<CommentAndRating> comments = commentAndRatingService.getCommentByPlace(idPlace);
         request.setAttribute("images", images);
         request.setAttribute("place", place);
-        request.setAttribute("comments",comments);
+        request.setAttribute("comments", comments);
         return "/place/show-place";
     }
 

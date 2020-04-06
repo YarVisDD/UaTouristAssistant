@@ -51,10 +51,10 @@
             <label class="control-label col-md-3">Rate </label>
             <div class="col-md-7">
                 <select id="RateType" class="form-control" name="rateType" value="${comment.rateType}">
-                    <option value="VERY_UNSATISFACTORY">VERY_UNSATISFACTORY</option>
+                    <option value="VERY_UNSATISFACTORY">VERY UNSATISFACTORY</option>
                     <option value="BAD">BAD</option>
                     <option value="GOOD">GOOD</option>
-                    <option value="VERY_GOOD">VERY_GOOD</option>
+                    <option value="VERY_GOOD">VERY GOOD</option>
                     <option value="EXCELLENT">EXCELLENT</option>
                 </select>
             </div>

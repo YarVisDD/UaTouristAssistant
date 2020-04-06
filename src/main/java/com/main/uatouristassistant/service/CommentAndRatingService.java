@@ -1,7 +1,6 @@
 package com.main.uatouristassistant.service;
 
 import com.main.uatouristassistant.entity.CommentAndRating;
-import com.main.uatouristassistant.entity.Place;
 import com.main.uatouristassistant.entity.RateType;
 import com.main.uatouristassistant.repository.CommentAndRatingRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +17,7 @@ public class CommentAndRatingService {
     @Autowired
     private PlaceService placeService;
 
-    public void saveCommentAndRate(String userLogin, String comment, RateType rateType,Long placeId) {
+    public void saveCommentAndRate(String userLogin, String comment, RateType rateType, Long placeId) {
         CommentAndRating commentAndRating = new CommentAndRating();
         commentAndRating.setUserLogin(userLogin);
         commentAndRating.setComment(comment);
@@ -27,9 +26,11 @@ public class CommentAndRatingService {
         commentAndRatingRepository.save(commentAndRating);
         log.info("INFO!!! Comment and rate has been added. Comment and rate {}", commentAndRating);
     }
-public  List<CommentAndRating> getCommentByPlace(Long id){
-       return commentAndRatingRepository.findByPlaceIdPlace(id);
-}
+
+    public List<CommentAndRating> getCommentByPlace(Long id) {
+        return commentAndRatingRepository.findByPlaceIdPlace(id);
+    }
+
     public void getCommentAndRate(String userLogin) {
         commentAndRatingRepository.findCommentAndRateByUserLogin(userLogin);
     }
@@ -52,7 +53,7 @@ public  List<CommentAndRating> getCommentByPlace(Long id){
         }
     }
 
-    public String updCommentAndRatee(String userLogin, String comment, RateType rateType,Long placeId) {
+    public String updCommentAndRatee(String userLogin, String comment, RateType rateType, Long placeId) {
         try {
             CommentAndRating commentAndRating = commentAndRatingRepository.findCommentAndRateByUserLogin(userLogin);
             commentAndRating.setComment(comment);
