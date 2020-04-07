@@ -38,6 +38,13 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="control-label col-md-3">Password</label>
+            <div class="col-md-7">
+                <input type="password" class="form-control" name="password"
+                       value="${user.password}"/>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="control-label col-md-3">Email</label>
             <div class="col-md-7">
                 <input type="text" class="form-control" name="email"
@@ -72,13 +79,6 @@
                     <option value="SUBSCRIBER">subscriber</option>
                     <option value="AUTHOR">author</option>
                 </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-3">Password</label>
-            <div class="col-md-7">
-                <input type="password" class="form-control" name="password"
-                       value="${user.password}"/>
             </div>
         </div>
         <div class="form-group ">

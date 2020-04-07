@@ -26,8 +26,6 @@ class UserServiceTest {
     @MockBean
     private UserRepository userRepository;
 
-    private List<User> userList;
-
     @Test
     void addUser() {
         String login = "testUser";
