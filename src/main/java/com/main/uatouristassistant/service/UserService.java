@@ -8,6 +8,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Slf4j
@@ -94,5 +95,19 @@ public class UserService {
 
     public boolean existsByLogin(String login) {
         return userRepository.existsByLogin(login);
+    }
+
+    public boolean updateUser(String login, HttpServletRequest request) {
+        String sessionLogin = String.valueOf(request.getSession().getAttribute("userLogin"));
+        if (userRepository.existsByLogin(login) || userRepository.existsByLogin(sessionLogin)) {
+            UserRoles userRole = userRepository.findByLogin(login).getUserRole();
+            UserRoles sessionUserRole = userRepository.findByLogin(sessionLogin).getUserRole();
+            if (login.equals(sessionLogin) ||
+                    (userRole.equals(sessionUserRole) || sessionUserRole.equals(UserRoles.ADMIN))) {
+                request.setAttribute("user", userRepository.findByLogin(login));
+                return true;
+            }
+        }
+        return false;
     }
 }
