@@ -39,32 +39,38 @@ public class CommentAndRatingService {
         return commentAndRatingRepository.findAll();
     }
 
-    public String delCommentAndRate(Long commentId) {
-        try {
+    public boolean delCommentAndRate(Long commentId) {
+
+        if (commentAndRatingRepository.existsByCommentId(commentId)) {
             CommentAndRating commentAndRating = commentAndRatingRepository.findCommentAndRatingByCommentId(commentId);
             commentAndRatingRepository.delete(commentAndRating);
-
             log.info("INFO!!! Comment and rate has been deleted for commentId{}", commentId);
 
-            return "The comment " + commentId + " has been deleted";
-        } catch (Exception ex) {
+            return true;
+
+        } else {
+
             log.error("ERROR!!! Tried to delete comment and rate which does not exist: {}", commentId);
-            return "The comment " + commentId + " does not exist!";
+            return false;
         }
     }
 
-    public String updCommentAndRatee(String userLogin, String comment, RateType rateType, Long placeId) {
-        try {
+    public boolean updCommentAndRate(String userLogin, String comment, RateType rateType, Long placeId) {
+        if (commentAndRatingRepository.existsByUserLogin(userLogin)) {
             CommentAndRating commentAndRating = commentAndRatingRepository.findCommentAndRateByUserLogin(userLogin);
             commentAndRating.setComment(comment);
             commentAndRating.setRateType(rateType);
             commentAndRating.setPlace(placeService.getPlaceById(placeId));
             commentAndRatingRepository.save(commentAndRating);
             log.info("INFO!!! Comment and rate has been updated for userLogin {}", userLogin);
-            return "Comment and rate updated";
-        } catch (NullPointerException ex) {
+            return true;
+        } else {
             log.error("ERROR!!! Update comment adn rate for incorrect User Login {}", userLogin);
-            return "The user with login " + userLogin + " does not exist!";
+            return false;
+
+
         }
+
+
     }
 }
