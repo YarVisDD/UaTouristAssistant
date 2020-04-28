@@ -1,5 +1,5 @@
 <!DOCTYPE html >
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
 
 <body>
 
-<jsp:include page="/include/navbar.jsp" />
+<jsp:include page="/include/navbar.jsp"/>
 
 <div class="container text-center" id="tasksDiv">
     <h3>
@@ -26,35 +26,40 @@
         <%= request.getParameter("city") %> places
     </h3>
     <hr>
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered">
+
+    <div class="panel panel-default text-left">
+        <table class="table">
             <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Type</th>
-                <th>Image</th>
-                <th>City</th>
-                <th>Street</th>
-                <th>House</th>
+            <tr class="active">
+                <th class="text-center" width="20%">Photo</th>
+                <th>Name & Description</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach var="place" items="${places}">
                 <tr>
-                    <td><a href="/place/show-place/${place.idPlace}">${place.placeName}</a></td>
-                    <td>${place.placeDescription}</td>
-                    <td>${place.placeType}</td>
-                    <td id="placeListTg">
-                    <c:forEach var="image" items="${images}" varStatus="i">
-                        <c:if test="${image.place.idPlace == place.idPlace}">
-                            <img class="align-self-center mr-3" src="data:image/jpg;base64,${image.image}" width="10%">
-                        </c:if>
-                    </c:forEach>
+                    <td class="text-center">
+                        <c:set var="count" value="0"/>
+                        <c:forEach var="image" items="${images}">
+                            <c:if test="${image.place.idPlace == place.idPlace && count eq 0}">
+                                <a href="/place/show-place/${place.idPlace}">
+                                    <img class="align-self-center mr-3" src="data:image/jpg;base64,${image.image}"
+                                         height="150px">
+                                </a>
+                                <c:set var="count" value="${count + 1}"/>
+                            </c:if>
+                        </c:forEach>
                     </td>
-                    <td>${place.address.city.cityName}</td>
-                    <td>${place.address.street}</td>
-                    <td>${place.address.numberHouse}</td>
+                    <td>
+                        <h4><a href="/place/show-place/${place.idPlace}">${place.placeName}</a></h4>
+                        <p>
+                                ${place.placeType}<br>
+                                ${place.address.city.cityName},
+                                ${place.address.street},
+                                ${place.address.numberHouse}
+                        </p>
+                        <p>${place.placeDescription}</p>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -63,7 +68,7 @@
 
 </div>
 
-<jsp:include page="/include/footer.jsp" />
+<jsp:include page="/include/footer.jsp"/>
 
 </body>
 </html>

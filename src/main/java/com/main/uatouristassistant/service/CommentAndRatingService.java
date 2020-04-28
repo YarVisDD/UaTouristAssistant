@@ -14,14 +14,21 @@ import java.util.List;
 public class CommentAndRatingService {
     @Autowired
     private CommentAndRatingRepository commentAndRatingRepository;
+    @Autowired
+    private PlaceService placeService;
 
-    public void saveCommentAndRate(String userLogin, String comment, RateType rateType) {
+    public void saveCommentAndRate(String userLogin, String comment, RateType rateType, Long placeId) {
         CommentAndRating commentAndRating = new CommentAndRating();
         commentAndRating.setUserLogin(userLogin);
         commentAndRating.setComment(comment);
         commentAndRating.setRateType(rateType);
+        commentAndRating.setPlace(placeService.getPlaceById(placeId));
         commentAndRatingRepository.save(commentAndRating);
         log.info("INFO!!! Comment and rate has been added. Comment and rate {}", commentAndRating);
+    }
+
+    public List<CommentAndRating> getCommentByPlace(Long id) {
+        return commentAndRatingRepository.findByPlaceIdPlace(id);
     }
 
     public void getCommentAndRate(String userLogin) {
@@ -46,11 +53,12 @@ public class CommentAndRatingService {
         }
     }
 
-    public String updCommentAndRatee(String userLogin, String comment, RateType rateType) {
+    public String updCommentAndRatee(String userLogin, String comment, RateType rateType, Long placeId) {
         try {
             CommentAndRating commentAndRating = commentAndRatingRepository.findCommentAndRateByUserLogin(userLogin);
             commentAndRating.setComment(comment);
             commentAndRating.setRateType(rateType);
+            commentAndRating.setPlace(placeService.getPlaceById(placeId));
             commentAndRatingRepository.save(commentAndRating);
             log.info("INFO!!! Comment and rate has been updated for userLogin {}", userLogin);
             return "Comment and rate updated";

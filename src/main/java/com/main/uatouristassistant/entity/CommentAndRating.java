@@ -11,11 +11,14 @@ public class CommentAndRating {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long commentId;
-    //private Long userId;
-    private  String userLogin;
+
+    private String userLogin;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "place_id")
+    private Place place;
     private String comment;
-    //private String rate;
-    private Long placeId;
+
+
     @Enumerated(EnumType.STRING)
     private RateType rateType;
 

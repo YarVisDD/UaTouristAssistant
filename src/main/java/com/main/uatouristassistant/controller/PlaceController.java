@@ -1,8 +1,10 @@
 package com.main.uatouristassistant.controller;
 
+import com.main.uatouristassistant.entity.CommentAndRating;
 import com.main.uatouristassistant.entity.Place;
 import com.main.uatouristassistant.entity.PlaceImage;
 import com.main.uatouristassistant.entity.PlaceType;
+import com.main.uatouristassistant.service.CommentAndRatingService;
 import com.main.uatouristassistant.service.PlaceImagesService;
 import com.main.uatouristassistant.service.PlaceService;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,8 @@ public class PlaceController extends HttpServlet {
 
     @Autowired
     PlaceImagesService imagesService;
+    @Autowired
+    private CommentAndRatingService commentAndRatingService;
 
     @PostMapping("/save-place")
     public String addPlace(@RequestParam String placeName,
@@ -69,8 +73,10 @@ public class PlaceController extends HttpServlet {
     public String getPlace(@PathVariable Long idPlace, HttpServletRequest request) {
         Place place = placeService.getPlaceById(idPlace);
         List<PlaceImage> images = imagesService.gteImageByIdPlace(idPlace);
+        List<CommentAndRating> comments = commentAndRatingService.getCommentByPlace(idPlace);
         request.setAttribute("images", images);
         request.setAttribute("place", place);
+        request.setAttribute("comments", comments);
         return "/place/show-place";
     }
 

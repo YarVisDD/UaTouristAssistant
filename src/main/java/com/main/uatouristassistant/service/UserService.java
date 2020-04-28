@@ -7,8 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -16,19 +17,19 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public boolean addUser(@RequestParam String login,
-                           @RequestParam String password,
-                           @RequestParam String email,
-                           @RequestParam UserRoles userRole,
-                           @RequestParam(required = false) String firstName,
-                           @RequestParam(required = false) String lastName,
-                           @RequestParam(required = false) String dateOfBirth) {
+    public boolean addUser(String login, String password, String email, UserRoles userRole,
+                           String firstName, String lastName, String dateOfBirth) {
         String addUserInfo;
         boolean checkLogin = false;
         User user = new User();
         boolean userLoginDb = userRepository.existsByLoginOrEmail(login, email);
 
-        if (userLoginDb) {
+        if (login.isEmpty() || password.isEmpty() || email.isEmpty()) {
+            addUserInfo = "User tried to be registered with EMPTY info. \nLogin: " + login
+                    + "\nPassword: " + password + "\nEmail: " + email;
+            log.warn("WARNING!!! User tried to be registered with EMPTY info.\nLogin: {}\nPassword: {}\nEmail: {}",
+                    login, password, email);
+        } else if (userLoginDb) {
             addUserInfo = login + " - already REGISTERED. Please try with another LOGIN";
             log.warn("WARNING!!! User tried to be registered with existing login. Login: {}", login);
         } else {
@@ -48,7 +49,7 @@ public class UserService {
         return checkLogin;
     }
 
-    public boolean userLogin(@RequestParam String login, @RequestParam String password) {
+    public boolean userLogin(String login, String password) {
         boolean loginInfo = false;
         boolean checkLogin = userRepository.existsByLoginAndPassword(login, DigestUtils.sha256Hex(password));
         if (checkLogin) {
@@ -56,27 +57,27 @@ public class UserService {
             log.info("INFO!!! User logged in: {}", login);
         } else {
             System.out.println("Password or Login is incorrect");
-            log.warn("WARNING!!! Password or Login is incorrect. Login: {}", login);
+            log.warn("WARNING!!! Password or Login is incorrect.\nLogin: {}\nPassword: {}", login, password);
         }
         return loginInfo;
     }
 
-    public Iterable<User> getAllUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public User getUser(@PathVariable String login) {
+    public User getUser(String login) {
         return userRepository.findByLogin(login);
     }
 
-    public boolean deleteUser(@PathVariable String login) {
-        try {
+    public boolean deleteUser(String login) {
+        if (userRepository.existsByLogin(login)) {
             User user = userRepository.findByLogin(login);
             userRepository.delete(user);
             log.info("INFO!!! User has ben deleted: {}", user);
             System.out.println("The user with login " + login + " has been deleted");
             return true;
-        } catch (Exception ex) {
+        } else {
             log.error("ERROR!!! Tried to delete user which does not exist: {}", login);
             System.out.println("The user with login " + login + " does not exist!");
             return false;
@@ -88,11 +89,25 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User findUserByLogin(@RequestParam String login) {
+    public User findUserByLogin(String login) {
         return userRepository.findByLogin(login);
     }
 
-    public boolean existsByLogin (String login) {
+    public boolean existsByLogin(String login) {
         return userRepository.existsByLogin(login);
+    }
+
+    public boolean updateUser(String login, HttpServletRequest request) {
+        String sessionLogin = String.valueOf(request.getSession().getAttribute("userLogin"));
+        if (userRepository.existsByLogin(login) || userRepository.existsByLogin(sessionLogin)) {
+            UserRoles userRole = userRepository.findByLogin(login).getUserRole();
+            UserRoles sessionUserRole = userRepository.findByLogin(sessionLogin).getUserRole();
+            if (login.equals(sessionLogin) ||
+                    (userRole.equals(sessionUserRole) || sessionUserRole.equals(UserRoles.ADMIN))) {
+                request.setAttribute("user", userRepository.findByLogin(login));
+                return true;
+            }
+        }
+        return false;
     }
 }
