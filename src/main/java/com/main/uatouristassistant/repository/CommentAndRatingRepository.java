@@ -9,4 +9,6 @@ public interface CommentAndRatingRepository extends JpaRepository<CommentAndRati
     CommentAndRating findCommentAndRateByUserLogin(String userLogin);
     CommentAndRating findCommentAndRatingByCommentId(Long commentId);
     List<CommentAndRating> findByPlaceIdPlace(Long id);
+    boolean existsByCommentId(Long commentId);
+    boolean existsByUserLogin(String userLogin);
 }

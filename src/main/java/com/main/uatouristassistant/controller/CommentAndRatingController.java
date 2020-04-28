@@ -56,7 +56,7 @@ public class CommentAndRatingController extends HttpServlet {
                                 @RequestParam String comment,
                                 @RequestParam RateType rateType,
                                 @RequestParam Long id) {
-        commentAndRatingService.updCommentAndRatee(userLogin, comment, rateType, id);
+        commentAndRatingService.updCommentAndRate(userLogin, comment, rateType, id);
         return "redirect:/place/show-places";
     }
 
