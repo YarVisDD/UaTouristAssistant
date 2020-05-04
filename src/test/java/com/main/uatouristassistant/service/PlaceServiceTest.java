@@ -40,9 +40,6 @@ class PlaceServiceTest {
     private Place mockPlace;
 
     @MockBean
-    private PlaceType mockPlaceType;
-
-    @MockBean
     private City mockCity;
 
     @MockBean
@@ -67,14 +64,31 @@ class PlaceServiceTest {
         String streetName = "streetName";
         String numberHouse = "numberHouse";
 
-        User user = new User();
-//        City city = new City();
-//        Address address = new Address();
-//
-//        Mockito.when(mockUserService.getUser(Mockito.anyString())).thenReturn(user);
-//
-//        placeService.savePlace(placeName, placeDesc, placeType, images, user.getLogin(), city.getCityName(),
-//                address.getStreet(), address.getNumberHouse());
+        City city = new City();
+        Address address = new Address();
+        // City iExists = true
+        Mockito.when(mockCityRepository.existsByCityName(Mockito.anyString()))
+                .thenReturn(true);
+        Mockito.when(mockCityRepository.findByCityName(Mockito.anyString()))
+                .thenReturn(mockCity);
+
+        // Address iExists = true
+        Mockito.when(mockAddressRepository.existsByStreetAndNumberHouse(Mockito.anyString(), Mockito.anyString()))
+                .thenReturn(true);
+        Mockito.when(mockAddressRepository.findByStreetAndNumberHouse(Mockito.anyString(), Mockito.anyString()))
+                .thenReturn(mockAddress);
+
+        Mockito.when(mockUserService.getUser(Mockito.anyString()))
+                .thenReturn(mockUser);
+
+        Place place = new Place();
+        place.setPlaceName(placeName);
+        place.setPlaceDescription(placeDesc);
+        place.setPlaceType(placeType);
+        place.setUser(mockUser);
+        place.setAddress(mockAddress);
+
+        Mockito.verify(mockPlaceRepository, Mockito.times(1)).save(place);
 
     }
 
