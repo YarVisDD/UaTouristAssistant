@@ -82,7 +82,7 @@ public class PlaceController extends HttpServlet {
 
     @RequestMapping("/delete-place")
     public String deletePlace(@RequestParam Long idPlace, HttpServletRequest request) {
-        placeService.deletePlace(idPlace);
-        return "redirect:/place/show-places";
+        if (placeService.deletePlace(idPlace)) return "redirect:/place/show-places";
+        else return "error";
     }
 }
