@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +25,15 @@ class PlaceServiceTest {
 
     @MockBean
     private UserService mockUserService;
+
+    @MockBean
+    private CityService mockCityService;
+
+    @MockBean
+    private AddressService mockAddressService;
+
+    @MockBean
+    private PlaceImagesService mockPlaceImagesService;
 
     @MockBean
     private PlaceRepository mockPlaceRepository;
@@ -53,43 +61,47 @@ class PlaceServiceTest {
     private MultipartFile[] images;
 
     @Test
-    void savePlace() {
-        String placeName = "placeName";
-        String placeDesc = "placeDesc";
+    void savePlace_CityAndAddressExist() {
+        String placeName = "palceName";
+        String placeDesc = "PlaceDesc";
         PlaceType placeType = PlaceType.HOTELS;
-        MockMultipartFile image = new MockMultipartFile("file", "test.jpg",
-                "image/jpeg", "test image content".getBytes());
         String login = "login";
         String cityName = "cityName";
         String streetName = "streetName";
         String numberHouse = "numberHouse";
 
-        City city = new City();
-        Address address = new Address();
-        // City iExists = true
-        Mockito.when(mockCityRepository.existsByCityName(Mockito.anyString()))
+        City city = Mockito.spy(City.class);
+        Mockito.when(this.mockCityRepository.existsByCityName(Mockito.anyString()))
                 .thenReturn(true);
-        Mockito.when(mockCityRepository.findByCityName(Mockito.anyString()))
-                .thenReturn(mockCity);
+        Mockito.when(this.mockCityService.findCity(Mockito.anyString()))
+                .thenReturn(city);
 
-        // Address iExists = true
+        Address address = new Address();
         Mockito.when(mockAddressRepository.existsByStreetAndNumberHouse(Mockito.anyString(), Mockito.anyString()))
                 .thenReturn(true);
-        Mockito.when(mockAddressRepository.findByStreetAndNumberHouse(Mockito.anyString(), Mockito.anyString()))
-                .thenReturn(mockAddress);
+        Mockito.when(mockAddressService.getAddressByStreetAndNumberHouse(Mockito.anyString(), Mockito.anyString()))
+                .thenReturn(address);
 
+        User user = new User();
         Mockito.when(mockUserService.getUser(Mockito.anyString()))
-                .thenReturn(mockUser);
+                .thenReturn(user);
 
         Place place = new Place();
         place.setPlaceName(placeName);
         place.setPlaceDescription(placeDesc);
         place.setPlaceType(placeType);
-        place.setUser(mockUser);
-        place.setAddress(mockAddress);
+        place.setUser(user);
+        place.setAddress(address);
 
-        Mockito.verify(mockPlaceRepository, Mockito.times(1)).save(place);
+        Mockito.when(mockPlaceRepository.save(Mockito.any(Place.class)))
+                .thenReturn(Mockito.any(Place.class));
 
+        placeService.savePlace(placeName, placeDesc, placeType, images, login, cityName, streetName, numberHouse);
+
+        mockPlaceImagesService.saveImage(place, images);
+
+        Mockito.verify(mockPlaceRepository, Mockito.times(1))
+                .save(Mockito.any(Place.class));
     }
 
     @Test

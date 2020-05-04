@@ -33,14 +33,8 @@ public class PlaceService {
     @Autowired
     private PlaceImagesService imagesService;
 
-    public void savePlace(String placeName,
-                          String placeDescription,
-                          PlaceType placeType,
-                          MultipartFile[] images,
-                          String login,
-                          String cityName,
-                          String streetName,
-                          String numberHouse) {
+    public void savePlace(String placeName, String placeDescription, PlaceType placeType, MultipartFile[] images,
+                          String login, String cityName, String streetName, String numberHouse) {
         City city;
 
         if (!cityRepository.existsByCityName(cityName)) {

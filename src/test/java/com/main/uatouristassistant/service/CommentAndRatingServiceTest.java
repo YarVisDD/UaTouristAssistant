@@ -44,8 +44,6 @@ class CommentAndRatingServiceTest {
                 .thenReturn(Mockito.any(CommentAndRating.class));
 
         commentAndRatingService.saveCommentAndRate(userLogin, comment, rateType, place.getIdPlace());
-
-
     }
 
     @Test
@@ -99,7 +97,7 @@ class CommentAndRatingServiceTest {
                 thenReturn(place);
         Mockito.when(mockCommentAndRatingRepository.save(mockCommentAndRating)).thenReturn(mockCommentAndRating);
         Assert.assertTrue(commentAndRatingService.updCommentAndRate(userLogin,
-               comment,
+                comment,
                 rateType,
                 place.getIdPlace()));
         Mockito.when(mockCommentAndRatingRepository.existsByUserLogin(Mockito.anyString())).
