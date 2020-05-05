@@ -47,15 +47,6 @@ class PlaceServiceTest {
     @MockBean
     private Place mockPlace;
 
-    @MockBean
-    private City mockCity;
-
-    @MockBean
-    private User mockUser;
-
-    @MockBean
-    private Address mockAddress;
-
     private List<Place> placeList;
 
     private MultipartFile[] images;
