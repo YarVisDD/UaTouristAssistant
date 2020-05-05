@@ -9,7 +9,7 @@ import java.io.IOException;
 
 @WebFilter(urlPatterns = {
         "/homepage", "/homepage.jsp",
-        "/comment//add-comment", "/comment//add-comment.jsp",
+        "/comment/add-comment", "/comment/add-comment.jsp",
         "/user/show-users", "/show-users.jsp",
         "/place/add-place", "/place/add-place.jsp",
         "/place/show-places-by-type", "/place/show-places-by-type.jsp",
