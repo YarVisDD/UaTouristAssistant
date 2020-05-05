@@ -72,7 +72,7 @@ public class PlaceController extends HttpServlet {
     @GetMapping("/show-place/{idPlace}")
     public String getPlace(@PathVariable Long idPlace, HttpServletRequest request) {
         Place place = placeService.getPlaceById(idPlace);
-        List<PlaceImage> images = imagesService.gteImageByIdPlace(idPlace);
+        List<PlaceImage> images = imagesService.getImageByIdPlace(idPlace);
         List<CommentAndRating> comments = commentAndRatingService.getCommentByPlace(idPlace);
         request.setAttribute("images", images);
         request.setAttribute("place", place);
@@ -82,7 +82,7 @@ public class PlaceController extends HttpServlet {
 
     @RequestMapping("/delete-place")
     public String deletePlace(@RequestParam Long idPlace, HttpServletRequest request) {
-        placeService.deletePlace(idPlace);
-        return "redirect:/place/show-places";
+        if (placeService.deletePlace(idPlace)) return "redirect:/place/show-places";
+        else return "error";
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AddressService<list> {
+public class AddressService {
     @Autowired
     private AddressRepository addressRepository;
 
@@ -39,5 +39,9 @@ public class AddressService<list> {
 
     public List<Address> getAllAddresses() {
         return addressRepository.findAll();
+    }
+
+    public Address getAddressByStreetAndNumberHouse(String street, String numberHouse) {
+        return addressRepository.findByStreetAndNumberHouse(street, numberHouse);
     }
 }

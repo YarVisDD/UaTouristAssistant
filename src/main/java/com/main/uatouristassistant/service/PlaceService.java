@@ -33,17 +33,11 @@ public class PlaceService {
     @Autowired
     private PlaceImagesService imagesService;
 
-    public void savePlace(String placeName,
-                          String placeDescription,
-                          PlaceType placeType,
-                          MultipartFile[] images,
-                          String login,
-                          String cityName,
-                          String streetName,
-                          String numberHouse) {
+    public void savePlace(String placeName, String placeDescription, PlaceType placeType, MultipartFile[] images,
+                          String login, String cityName, String streetName, String numberHouse) {
         City city;
 
-        if (cityRepository.findByCityName(cityName) == null) {
+        if (!cityRepository.existsByCityName(cityName)) {
             city = new City();
             city.setCityName(cityName);
             cityRepository.save(city);
@@ -53,10 +47,8 @@ public class PlaceService {
         }
 
         Address address;
-        if (addressRepository.findByStreetAndNumberHouse(streetName, numberHouse) == null) {
+        if (!addressRepository.existsByStreetAndNumberHouse(streetName, numberHouse)) {
             address = new Address();
-            address.setStreet(streetName);
-            address.setNumberHouse(numberHouse);
             address.setStreet(streetName);
             address.setNumberHouse(numberHouse);
             address.setCity(city);
@@ -93,13 +85,15 @@ public class PlaceService {
         return placeRepository.findPlaceByIdPlace(idPlace);
     }
 
-    public void deletePlace(Long idPlace) {
-        try {
+    public boolean deletePlace(Long idPlace) {
+        if (placeRepository.existsById(idPlace)) {
             Place place = placeRepository.findPlaceByIdPlace(idPlace);
             placeRepository.delete(place);
             log.info("INFO!!! Place has ben delete: {}", place);
-        } catch (Exception ex) {
-            log.error("ERROR!!! Tried to delete user which does not exist: {}", idPlace);
+            return true;
+        } else {
+            log.error("ERROR!!! Tried to delete place which does not exist: {}", idPlace);
+            return false;
         }
     }
 }
