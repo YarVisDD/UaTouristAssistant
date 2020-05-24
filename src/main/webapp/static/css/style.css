@@ -1,0 +1,21 @@
+.invisible-at-first {
+    display: none;
+}
+
+#allPlaceList {
+    max-width: 100%;
+    width: 10%;
+}
+
+#placeListImg {
+    max-width: 50%;
+}
+
+#placeListTg {
+    width: 25%;
+}
+
+.placeImage {
+    width: 150px;
+    height: 130px;
+}
