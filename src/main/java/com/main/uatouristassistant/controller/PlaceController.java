@@ -27,6 +27,7 @@ public class PlaceController extends HttpServlet {
 
     @Autowired
     PlaceImagesService imagesService;
+
     @Autowired
     private CommentAndRatingService commentAndRatingService;
 
