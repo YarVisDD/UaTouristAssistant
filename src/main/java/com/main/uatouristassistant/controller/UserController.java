@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Slf4j
 @RequestMapping(path = "/user")
@@ -26,7 +28,15 @@ public class UserController {
 
     @PostMapping(path = "/addUser")
     public String addUser(@ModelAttribute User user, HttpServletRequest request) {
-        if (user.getLogin().isEmpty()) {
+
+        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?!-)(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(user.getEmail());
+
+        if (!matcher.matches()) {
+            request.setAttribute("error", "Email is invalid");
+            return "registration";
+        } else if (user.getLogin().isEmpty()) {
             request.setAttribute("error", "Username is empty");
             return "registration";
         } else if (user.getPassword().isEmpty()) {
