@@ -1,3 +1,4 @@
+/*
 package com.main.uatouristassistant.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,13 +45,12 @@ class CityControllerTest {
     @Autowired
     private MockMvc mvc;
 
-    /*@Test
+    @Test
     void allCity() throws Exception {
         mvc.perform(get("/city/listCity", "cityName"))
                 .andExpect(status().isOk())
                 .andExpect(redirectedUrl("/listCity"));
     }
-*/
     @Test
     void saveCity() throws Exception {
         City city = new City();
@@ -61,7 +61,7 @@ class CityControllerTest {
                 .andExpect(redirectedUrl("/city/show-cities"));
     }
 
-   /* @Test
+    @Test
     void addCity() throws Exception {
         City city = new City();
             Mockito.when(cityController.addCity(city,  request))
@@ -77,7 +77,6 @@ class CityControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(forwardedUrl("/add-city.jsp"));
     }
-*/
     @Test
     void showAllCityPage() throws Exception {
         mvc.perform(get("/city/show-cities"))
@@ -85,12 +84,12 @@ class CityControllerTest {
                 .andExpect(forwardedUrl("//city/show-cities.jsp"));
     }
 
-    /*@Test
+    @Test
     void updateCity() throws Exception {
         mvc.perform(get("/city/update-city"))
                 .andExpect(status().isOk())
                 .andExpect(forwardedUrl("/city/update-city.jsp"));
-    }*/
+    }
 
     @Test
     void deleteCity() throws Exception {
@@ -110,4 +109,4 @@ class CityControllerTest {
                 .andExpect(forwardedUrl("/city/delete-city/cityName.jsp"));
         // /error.jsp  ???
     }
-}
+}*/

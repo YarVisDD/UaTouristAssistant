@@ -34,8 +34,8 @@ class AddressControllerTest {
     @MockBean
     private AddressService addressService;
 
-   /* @MockBean
-    private CityController cityController;*/
+    @MockBean
+    private CityController cityController;
 
     @Autowired
     private MockMvc mvc;
