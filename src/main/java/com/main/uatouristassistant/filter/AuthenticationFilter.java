@@ -13,7 +13,7 @@ import java.io.IOException;
         "/user/show-users", "/show-users.jsp",
         "/place/add-place", "/place/add-place.jsp",
         "/place/show-places-by-type", "/place/show-places-by-type.jsp",
-        "/user/update-user/*"
+        "/user/update-user/*", "/place/show-places", "/place/show-places.jsp"
 })
 public class AuthenticationFilter implements Filter {
     private ServletContext context;

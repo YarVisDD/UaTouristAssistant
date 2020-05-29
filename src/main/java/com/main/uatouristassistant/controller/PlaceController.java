@@ -39,11 +39,20 @@ public class PlaceController extends HttpServlet {
                            String login,
                            @RequestParam String cityName,
                            @RequestParam String streetName,
-                           @RequestParam String numberHouse) {
+                           @RequestParam String numberHouse,
+                           HttpServletRequest request) {
 
-        placeService.savePlace(placeName, placeDescription, placeType, images, login, cityName, streetName, numberHouse);
+        String errorMessage = placeService.errorMessage(placeName, placeDescription, images,
+                cityName, streetName, numberHouse);
+        System.out.println(placeName);
+        if (!errorMessage.isEmpty()) {
+            request.setAttribute("error", errorMessage);
+            return "/place/add-place";
+        } else {
+            placeService.savePlace(placeName, placeDescription, placeType, images, login, cityName, streetName, numberHouse);
 
-        return "redirect:/place/show-places";
+            return "redirect:/place/show-places";
+        }
     }
 
     @RequestMapping("/add-place")
@@ -67,6 +76,7 @@ public class PlaceController extends HttpServlet {
     @GetMapping("/show-places")
     public String showAllPlacesPage(HttpServletRequest request) {
         request.setAttribute("places", placeService.findAll());
+        request.setAttribute("images", imagesService.getAllImage());
         return "/place/show-places";
     }
 
@@ -81,7 +91,7 @@ public class PlaceController extends HttpServlet {
         return "/place/show-place";
     }
 
-    @RequestMapping("/delete-place")
+    @RequestMapping("/delete-place/{idPlace}")
     public String deletePlace(@RequestParam Long idPlace, HttpServletRequest request) {
         if (placeService.deletePlace(idPlace)) return "redirect:/place/show-places";
         else return "error";
