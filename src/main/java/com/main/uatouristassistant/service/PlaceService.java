@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Slf4j
 @Service
@@ -86,7 +88,7 @@ public class PlaceService {
     }
 
     public boolean deletePlace(Long idPlace) {
-        if (placeRepository.existsById(idPlace)) {
+        if (imagesService.deleteImages(idPlace) && placeRepository.existsById(idPlace)) {
             Place place = placeRepository.findPlaceByIdPlace(idPlace);
             placeRepository.delete(place);
             log.info("INFO!!! Place has ben delete: {}", place);
@@ -94,6 +96,39 @@ public class PlaceService {
         } else {
             log.error("ERROR!!! Tried to delete place which does not exist: {}", idPlace);
             return false;
+        }
+    }
+
+    public String errorMessage(String placeName, String placeDescription, MultipartFile[] images,
+                               String cityName, String streetName, String numberHouse) {
+        String placeNameOrCityOrStreetRegex = "^[A-zА-яІі0-9 -]{2,30}$";
+        String placeDescriptionRegex = "^[A-zА-яІі0-9-\" ]{10,2000}$";
+        String numberHouseRegex = "^[0-9]{1,3}[A-zА-яІі]?$";
+
+        Pattern placeNameOrCityOrStreetPattern = Pattern.compile(placeNameOrCityOrStreetRegex);
+        Pattern placeDescriptionPattern = Pattern.compile(placeDescriptionRegex);
+        Pattern numberHousePattern = Pattern.compile(numberHouseRegex);
+
+        Matcher placeNameMatcher = placeNameOrCityOrStreetPattern.matcher(placeName);
+        Matcher cityMatcher = placeNameOrCityOrStreetPattern.matcher(cityName);
+        Matcher streetNameMatcher = placeNameOrCityOrStreetPattern.matcher(streetName);
+        Matcher placeDescriptionMatcher = placeDescriptionPattern.matcher(placeDescription);
+        Matcher numberHouseMatcher = numberHousePattern.matcher(numberHouse);
+
+        if (!placeNameMatcher.matches()) {
+            return "Incorrect Place name. Valid characters A-z, А-я, ' ' and '-'";
+        } else if (!placeDescriptionMatcher.matches()) {
+            return "Incorrect Place description. Minimum length 10 characters. Valid characters A-z, А-я, ' ', '-' and '\"'";
+        } else if (!imagesService.isValidFileName(images)) {
+            return "Incorrect file extension. Available file extensions: 'png' and 'jpg'";
+        } else if (!cityMatcher.matches()) {
+            return "Incorrect City name. Valid characters A-z, А-я, ' ' and '-'";
+        } else if (!streetNameMatcher.matches()) {
+            return "Incorrect Street name. Valid characters A-z, А-я, ' ' and '-'";
+        } else if (!numberHouseMatcher.matches()) {
+            return "Incorrect Number house.";
+        } else {
+            return "";
         }
     }
 }
