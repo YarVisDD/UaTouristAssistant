@@ -31,13 +31,12 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Type</th>
-<%--                <th>Image</th>--%>
+                <th>Number Image</th>
                 <th>User</th>
                 <th>City</th>
                 <th>Street</th>
                 <th>House</th>
                 <th>Delete</th>
-                <th>Edit</th>
             </tr>
             </thead>
             <tbody>
@@ -47,15 +46,19 @@
                     <td>${place.placeName}</td>
                     <td>${place.placeDescription}</td>
                     <td>${place.placeType}</td>
-<%--                    <td id="placeListTg"><img src="../images/place_img/${place.imagePath}" id="placeListImg" class="img-fluid" alt="img"/></td>--%>
+                    <c:set var="count" value="0"/>
+                    <c:forEach var="image" items="${images}">
+                        <c:if test="${image.place.idPlace == place.idPlace}">
+                            <c:set var="count" value="${count + 1}"/>
+                        </c:if>
+                    </c:forEach>
+                    <td>${count}</td>
                     <td>${place.user.login}</td>
                     <td>${place.address.city.cityName}</td>
                     <td>${place.address.street}</td>
                     <td>${place.address.numberHouse}</td>
                     <td><a href="/place/delete-place?idPlace=${place.idPlace}"><span
                             class="glyphicon glyphicon-trash"></span></a></td>
-                    <td><a href="#"><span
-                            class="glyphicon glyphicon-pencil"></span></a></td>
                 </tr>
             </c:forEach>
             </tbody>

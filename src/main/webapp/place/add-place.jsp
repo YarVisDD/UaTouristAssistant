@@ -1,4 +1,6 @@
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -16,17 +18,23 @@
 </head>
 <body>
 
-<jsp:include page="/include/navbar.jsp" />
+<jsp:include page="/include/navbar.jsp"/>
 
 <div class="container text-center">
     <h3>New Place</h3>
     <hr>
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger">
+            <c:out value="${error}"></c:out>
+        </div>
+    </c:if>
     <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/place/save-place">
         <input type="hidden" name="id" value="${place.idPlace}"/>
         <div class="form-group">
             <label class="control-label col-md-3">Place name</label>
             <div class="col-md-7">
-                <input class="form-control" type="text" name="placeName" placeholder="Enter place name" value="${place.placeName}"/>
+                <input class="form-control" type="text" name="placeName" placeholder="Enter place name"
+                       value="${place.placeName}"/>
             </div>
         </div>
         <div class="form-group">
