@@ -44,7 +44,7 @@ public class PlaceImagesService {
     }
 
     public boolean isValidFileName(MultipartFile[] files) {
-        String fileNameRegex = "([^\\s]+(\\.(?i)(jpg|png))$)";
+        String fileNameRegex = "([^\\s]+(\\.(?i)(jpg|png|jpeg))$)";
         Pattern pattern = Pattern.compile(fileNameRegex);
 
         for (MultipartFile file : files) {
@@ -63,11 +63,13 @@ public class PlaceImagesService {
         if (images.size() != 0) {
             for (PlaceImage image : images) {
                 placeImageRepository.deletePlaceImageByPlaceIdPlace(image.getIdImage());
-                log.info("INFO!!! Place has ben delete: {}", image);
+                log.info("INFO!!! Image has ben delete: {}", image.getIdImage());
+                System.out.println("INFO!!! Image has ben delete " + image.getIdImage());
             }
             return true;
         } else {
             log.error("ERROR!!! Tried to delete image which does not exist.");
+            System.out.println("INFO!!! Image has not ben delete");
             return false;
         }
     }

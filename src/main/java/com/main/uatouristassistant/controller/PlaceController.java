@@ -91,8 +91,8 @@ public class PlaceController extends HttpServlet {
         return "/place/show-place";
     }
 
-    @RequestMapping("/delete-place/{idPlace}")
-    public String deletePlace(@RequestParam Long idPlace, HttpServletRequest request) {
+    @GetMapping("/delete-place/{idPlace}")
+    public String deletePlace(@PathVariable Long idPlace) {
         if (placeService.deletePlace(idPlace)) return "redirect:/place/show-places";
         else return "error";
     }
