@@ -57,7 +57,7 @@
                     <td>${place.address.city.cityName}</td>
                     <td>${place.address.street}</td>
                     <td>${place.address.numberHouse}</td>
-                    <td><a href="/place/delete-place?idPlace=${place.idPlace}"><span
+                    <td><a href="/place/delete-place/${place.idPlace}"><span
                             class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
             </c:forEach>

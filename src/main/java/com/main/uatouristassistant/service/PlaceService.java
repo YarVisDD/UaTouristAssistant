@@ -88,13 +88,17 @@ public class PlaceService {
     }
 
     public boolean deletePlace(Long idPlace) {
-        if (imagesService.deleteImages(idPlace) && placeRepository.existsById(idPlace)) {
+        boolean deleteImage = imagesService.deleteImages(idPlace);
+
+        if (deleteImage && placeRepository.existsById(idPlace)) {
             Place place = placeRepository.findPlaceByIdPlace(idPlace);
             placeRepository.delete(place);
             log.info("INFO!!! Place has ben delete: {}", place);
+            System.out.println("INFO!!! Place has ben delete: " + place.getPlaceName());
             return true;
         } else {
             log.error("ERROR!!! Tried to delete place which does not exist: {}", idPlace);
+            System.out.println("Place not delete");
             return false;
         }
     }
@@ -120,7 +124,7 @@ public class PlaceService {
         } else if (!placeDescriptionMatcher.matches()) {
             return "Incorrect Place description. Minimum length 10 characters. Valid characters A-z, А-я, ' ', '-' and '\"'";
         } else if (!imagesService.isValidFileName(images)) {
-            return "Incorrect file extension. Available file extensions: 'png' and 'jpg'";
+            return "Incorrect file extension. Available file extensions: 'png', 'jpg' and 'jpeg'";
         } else if (!cityMatcher.matches()) {
             return "Incorrect City name. Valid characters A-z, А-я, ' ' and '-'";
         } else if (!streetNameMatcher.matches()) {
