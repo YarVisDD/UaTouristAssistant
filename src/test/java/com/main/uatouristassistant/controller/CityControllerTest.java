@@ -1,4 +1,3 @@
-/*
 package com.main.uatouristassistant.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -74,14 +73,14 @@ class CityControllerTest {
 
         mvc.perform(post(uri))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(forwardedUrl("/add-city.jsp"));
     }
     @Test
     void showAllCityPage() throws Exception {
         mvc.perform(get("/city/show-cities"))
                 .andExpect(status().isOk())
-                .andExpect(forwardedUrl("//city/show-cities.jsp"));
+                .andExpect(forwardedUrl("/city/show-cities.jsp"));
     }
 
     @Test
@@ -97,7 +96,7 @@ class CityControllerTest {
 
         mvc.perform(get("/city/delete-city/{cityName}", "cityName"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/city/show-cities"));
+                .andExpect(redirectedUrl("city/show-cities"));
     }
 
     @Test
@@ -109,4 +108,4 @@ class CityControllerTest {
                 .andExpect(forwardedUrl("/city/delete-city/cityName.jsp"));
         // /error.jsp  ???
     }
-}*/
+}
