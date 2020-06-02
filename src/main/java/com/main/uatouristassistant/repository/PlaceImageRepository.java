@@ -8,5 +8,4 @@ import java.util.List;
 public interface PlaceImageRepository extends JpaRepository<PlaceImage, Long> {
     List<PlaceImage> findByPlaceIdPlace(Long idPlace);
 
-    void deletePlaceImageByPlaceIdPlace(Long idPlace);
 }
