@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html >
 <html>
 <head>
@@ -22,7 +23,11 @@
 <div class="container text-center">
     <h3>Add Comment</h3>
     <hr>
-
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger">
+            <c:out value="${error}"></c:out>
+        </div>
+    </c:if>
     <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/comment/save-comment">
         <div class="form-group">
             <label class="control-label col-md-3">Login</label>

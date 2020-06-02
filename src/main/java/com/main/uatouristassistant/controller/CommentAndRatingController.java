@@ -26,10 +26,16 @@ public class CommentAndRatingController extends HttpServlet {
     public String addCommentAndRate(@RequestParam String userLogin,
                                     @RequestParam String comment,
                                     @RequestParam RateType rateType,
-                                    @RequestParam Long idPlace) {
+                                    @RequestParam Long idPlace,HttpServletRequest request) {
+        String errorMessage=commentAndRatingService.errorMessage(comment);
+        if(!errorMessage.isEmpty()){
+            request.setAttribute("error",errorMessage);
+            return "/comment/add-comment";
+        }else {
         commentAndRatingService.saveCommentAndRate(userLogin, comment, rateType, idPlace);
 
-        return "redirect:/place/show-place/" + idPlace;
+            return "redirect:/place/show-place/" + idPlace;
+        }
     }
 
     @RequestMapping("/add-comment")

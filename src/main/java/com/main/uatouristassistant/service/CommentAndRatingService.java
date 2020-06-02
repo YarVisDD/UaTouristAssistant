@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Slf4j
 @Service
@@ -72,5 +74,20 @@ public class CommentAndRatingService {
         }
 
 
+    }
+
+    public String errorMessage(String comment) {
+        String commentRegexC = "Сука";
+        String commentRegexB = "Блядь";
+        String commentRegexF = "Fuck";
+        Pattern patternC = Pattern.compile(commentRegexC);
+        Pattern patternB = Pattern.compile(commentRegexB);
+        Pattern patternF = Pattern.compile(commentRegexF);
+        Matcher matcherC = patternC.matcher(comment);
+        Matcher matcherB = patternB.matcher(comment);
+        Matcher matcherF = patternF.matcher(comment);
+        if (matcherC.matches() || matcherB.matches() || matcherF.matches()) {
+            return "In your comment there is profanity";
+        } else return "";
     }
 }
