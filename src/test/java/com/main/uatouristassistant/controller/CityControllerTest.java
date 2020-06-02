@@ -48,7 +48,7 @@ class CityControllerTest {
     void allCity() throws Exception {
         mvc.perform(get("/city/listCity", "cityName"))
                 .andExpect(status().isOk())
-                .andExpect(redirectedUrl("/listCity"));
+                .andExpect(redirectedUrl("/city/listCity"));
     }
     @Test
     void saveCity() throws Exception {
@@ -84,28 +84,11 @@ class CityControllerTest {
     }
 
     @Test
-    void updateCity() throws Exception {
-        mvc.perform(get("/city/update-city"))
-                .andExpect(status().isOk())
-                .andExpect(forwardedUrl("/city/update-city.jsp"));
-    }
-
-    @Test
-    void deleteCity() throws Exception {
-        Mockito.when(cityService.deleteCity("cityName")).thenReturn(true);
-
-        mvc.perform(get("/city/delete-city/{cityName}", "cityName"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("city/show-cities"));
-    }
-
-    @Test
     void deleteCityFail() throws Exception {
         Mockito.when(cityService.deleteCity("cityName")).thenReturn(false);
 
         mvc.perform(get("/city/delete-city/{cityName}", "cityName"))
                 .andExpect(status().isOk())
                 .andExpect(forwardedUrl("/city/delete-city/cityName.jsp"));
-        // /error.jsp  ???
     }
 }

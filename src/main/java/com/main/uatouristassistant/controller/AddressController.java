@@ -32,13 +32,13 @@ public class AddressController {
 
     @GetMapping("/show-addresses")
     public String showAllPlacesPage(HttpServletRequest request) {
-        request.setAttribute("addres", addressService.getAllAddresses());
-        return "addres/show-addresses";
+        request.setAttribute("address", addressService.getAllAddresses());
+        return "address/show-addresses";
     }
 
     @GetMapping("/listAddresses")
     @ResponseBody
-        public Iterable<Address> AllAddreses() {
+        public Iterable<Address> AllAddresses() {
             return addressService.getAllAddresses();
     }
 }

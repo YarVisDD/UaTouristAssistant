@@ -39,22 +39,11 @@ class AddressControllerTest {
 
     @Autowired
     private MockMvc mvc;
-    @Test
-    void addAddress() {
-    }
-
-    @Test
-    void addAddressPage() {
-    }
 
     @Test
     void showAllPlacesPage() throws Exception {
         mvc.perform(get("/address/show-addresses"))
                 .andExpect(status().isOk())
-                .andExpect(forwardedUrl("/addres/show-addresses.jsp"));
-    }
-
-    @Test
-    void allAddreses() {
+                .andExpect(forwardedUrl("/address/show-addresses.jsp"));
     }
 }
