@@ -44,7 +44,7 @@ public class PlaceController extends HttpServlet {
 
         String errorMessage = placeService.errorMessage(placeName, placeDescription, images,
                 cityName, streetName, numberHouse);
-        System.out.println(placeName);
+        System.out.println(placeName + placeDescription + cityName + streetName + numberHouse);
         if (!errorMessage.isEmpty()) {
             request.setAttribute("error", errorMessage);
             return "/place/add-place";

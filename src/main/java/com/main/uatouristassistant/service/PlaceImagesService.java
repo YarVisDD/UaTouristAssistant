@@ -62,7 +62,7 @@ public class PlaceImagesService {
 
         if (images.size() != 0) {
             for (PlaceImage image : images) {
-                placeImageRepository.deletePlaceImageByPlaceIdPlace(image.getIdImage());
+                placeImageRepository.delete(image);
                 log.info("INFO!!! Image has ben delete: {}", image.getIdImage());
                 System.out.println("INFO!!! Image has ben delete " + image.getIdImage());
             }

@@ -105,9 +105,9 @@ public class PlaceService {
 
     public String errorMessage(String placeName, String placeDescription, MultipartFile[] images,
                                String cityName, String streetName, String numberHouse) {
-        String placeNameOrCityOrStreetRegex = "^[A-zА-яІі0-9 -]{2,30}$";
-        String placeDescriptionRegex = "^[A-zА-яІі0-9-\" ]{10,2000}$";
-        String numberHouseRegex = "^[0-9]{1,3}[A-zА-яІі]?$";
+        String placeNameOrCityOrStreetRegex = "^[A-z0-9 -]{2,30}$";
+        String placeDescriptionRegex = "^[A-z0-9-\" ]{10,2000000}$";
+        String numberHouseRegex = "^[0-9]{1,3}[A-z]?$";
 
         Pattern placeNameOrCityOrStreetPattern = Pattern.compile(placeNameOrCityOrStreetRegex);
         Pattern placeDescriptionPattern = Pattern.compile(placeDescriptionRegex);
